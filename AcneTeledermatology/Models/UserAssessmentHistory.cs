@@ -13,9 +13,7 @@ public class UserAssessmentHistory
 
     public DateTime DateCreated { get; set; }
 
-    public int Score { get; set; }
 
-    public string Ingredients { get; set; }
 
-    public virtual UserAssessment UserAssessment { get; set; } // Navigation Property for UserAssessment
+    ICollection<UserAssessment> UserAssessment;
 }

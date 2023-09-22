@@ -9,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AcneTeleContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AcneTeleContext") ?? throw new InvalidOperationException("Connection string 'AcneTeleContext' not found.")));
-builder.Services.AddDbContext<AcneTeleContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AcneTeleContext") ?? throw new InvalidOperationException("Connection string 'AcneTeleContext' not found.")));
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -32,10 +31,10 @@ else
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-
+     
     var context = services.GetRequiredService<AcneTeleContext>();
     context.Database.EnsureCreated();
-     //DbInitializer.Initialize(context);
+     DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();

@@ -6,7 +6,7 @@ namespace AcneTeledermatology.Models
     public class UserProfile
     {
         [Key]
-        public int ID { get; set; } // Primary Key
+        public int IDUserProfile { get; set; } // Primary Key
 
         [ForeignKey("User")]
         public int IDUser { get; set; } // Foreign Key

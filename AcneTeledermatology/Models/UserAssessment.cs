@@ -18,7 +18,7 @@ public class UserAssessment
 
     public string Ingredients { get; set; }
 
-    ICollection<UserAssessmentHistory> UserAssessmentHistories;
+    ICollection<UserAssessmentHistory> UserAssessmentHistory;
 
 
     ICollection<User> User;

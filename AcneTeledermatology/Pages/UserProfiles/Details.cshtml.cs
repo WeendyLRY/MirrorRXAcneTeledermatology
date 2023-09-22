@@ -28,7 +28,7 @@ namespace AcneTeledermatology.Pages.UserProfiles
                 return NotFound();
             }
 
-            var userprofile = await _context.UserProfiles.FirstOrDefaultAsync(m => m.ID == id);
+            var userprofile = await _context.UserProfiles.FirstOrDefaultAsync(m => m.IDUserProfile == id);
             if (userprofile == null)
             {
                 return NotFound();

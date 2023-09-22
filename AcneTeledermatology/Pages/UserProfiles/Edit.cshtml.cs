@@ -30,7 +30,7 @@ namespace AcneTeledermatology.Pages.UserProfiles
                 return NotFound();
             }
 
-            var userprofile =  await _context.UserProfiles.FirstOrDefaultAsync(m => m.ID == id);
+            var userprofile =  await _context.UserProfiles.FirstOrDefaultAsync(m => m.IDUserProfile == id);
             if (userprofile == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace AcneTeledermatology.Pages.UserProfiles
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserProfileExists(UserProfile.ID))
+                if (!UserProfileExists(UserProfile.IDUserProfile))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace AcneTeledermatology.Pages.UserProfiles
 
         private bool UserProfileExists(int id)
         {
-          return _context.UserProfiles.Any(e => e.ID == id);
+          return _context.UserProfiles.Any(e => e.IDUserProfile == id);
         }
     }
 }

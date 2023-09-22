@@ -11,6 +11,10 @@ public class UserSupplementalAcneProfile
     [ForeignKey("User")]
     public int IDUser { get; set; } // Foreign Key to User, Unique, Not Null
 
+    [Required]
+    [ForeignKey("UserProfile")]
+    public int IDUserProfile { get; set; } // Foreign Key to User, Unique, Not Null
+
     [Range(1, 3)]
     public int SleepingPattern { get; set; } // Dropdown: 1-3
 
@@ -27,4 +31,7 @@ public class UserSupplementalAcneProfile
 
 
     ICollection<User> User;
+    ICollection<UserProfile> UserProfile;
+    ICollection<UserDermRequest> UserDermRequests;
+
 }

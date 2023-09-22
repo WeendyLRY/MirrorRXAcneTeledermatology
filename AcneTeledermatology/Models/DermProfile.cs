@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class DermProfile
 {
     [Key]
-    public int IDDermaProfile { get; set; } // Primary Key
+    public int IDDermProfile { get; set; } // Primary Key
 
     [Required]
     [ForeignKey("Derm")]
-    public int IDDerma { get; set; } // Foreign Key to Derm, Unique, Not Null
+    public int IDDerm{ get; set; } // Foreign Key to Derm, Unique, Not Null
 
     public string DermName { get; set; }
 
@@ -19,5 +19,5 @@ public class DermProfile
 
     public DateTime DermDateCreated { get; set; }
 
-    public virtual Derm Derm { get; set; } // Navigation Property for Derm
+    ICollection<Derm> Derm;
 }

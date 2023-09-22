@@ -8,7 +8,7 @@ public class UserDermRequestResponse
 
     [Required]
     [ForeignKey("Derm")]
-    public int IDDerma { get; set; } // Foreign Key to Derm, Unique, Not Null
+    public int IDDerm { get; set; } // Foreign Key to Derm, Unique, Not Null
 
     [ForeignKey("UserDermRequest")]
     public int? IDUserDermRequest { get; set; } // Foreign Key to UserDermRequest
@@ -19,6 +19,8 @@ public class UserDermRequestResponse
 
     public string DermSuggestion { get; set; }
 
-    public virtual Derm Derm { get; set; } // Navigation Property for Derm
-    public virtual UserDermRequest UserDermRequest { get; set; } // Navigation Property for UserDermRequest
+    ICollection<Derm> Derm;
+
+    ICollection<DermPatientHistory> DermPatientHistory;
+
 }

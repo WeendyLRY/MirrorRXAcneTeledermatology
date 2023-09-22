@@ -6,6 +6,7 @@ namespace AcneTeledermatology.Models
     {
         [Key]
         public int IDUser { get; set; }
+        public DateTime DateCreated { get; set; }
 
         ICollection<UserDermRequest> UserDermRequests;
         ICollection<UserProfile> UserProfile;

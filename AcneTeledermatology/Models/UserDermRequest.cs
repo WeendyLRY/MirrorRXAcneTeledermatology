@@ -19,5 +19,7 @@ public class UserDermRequest
 
     ICollection<User> User;
 
+    ICollection<UserSupplementalAcneProfile> UserSupplementalAcneProfile;
+
 
 }
