@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    
+	  <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -15,11 +15,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
+    <PackageReference Include="TensorFlow.NET" Version="0.110.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Pages\UserAssessmentHistory\" />
-    <Folder Include="Pages\UserAssessment\" />
     <Folder Include="Pages\UserDermRequest\" />
     <Folder Include="Pages\User\" />
   </ItemGroup>

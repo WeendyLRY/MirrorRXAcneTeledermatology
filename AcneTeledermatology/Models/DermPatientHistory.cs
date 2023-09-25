@@ -2,22 +2,23 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class DermPatientHistory
+
+namespace AcneTeledermatology.Models
 {
-    [Key]
-    public int IDDermPatientHistory { get; set; } // Primary Key
-
-    [Required]
-    [ForeignKey("Derm")]
-    public int IDDerm { get; set; } // Foreign Key to Derm, Unique, Not Null
-
-    [ForeignKey("UserDermRequestResponse")]
-    public int? IDUserDermRequestResponse { get; set; } // Foreign Key to UserDermRequestResponse
-
-    public DateTime? DateCreated { get; set; }
+    public class DermPatientHistory
+    {
+        [Key]
+        public int IDDermPatientHistory { get; set; } // Primary Key
 
 
-    ICollection<Derm> Derm;
+        [ForeignKey("UserDermRequestResponse")]
+        public int? IDUserDermRequestResponse { get; set; } // Foreign Key to UserDermRequestResponse
 
-    ICollection<UserDermRequestResponse> UserDermRequestResponses;
+        public DateTime? DateCreated { get; set; }
+
+
+        ICollection<Derm> Derm;
+
+        ICollection<UserDermRequestResponse> UserDermRequestResponses;
+    }
 }

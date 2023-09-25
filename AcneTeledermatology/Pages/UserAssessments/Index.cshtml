@@ -1,0 +1,60 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserAssessments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAssessment[0].IDUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAssessment[0].DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAssessment[0].Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAssessment[0].Ingredients)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAssessment[0].image_to_test_path)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserAssessment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingredients)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image_to_test_path)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.IDUserAssessment">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.IDUserAssessment">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.IDUserAssessment">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -4,7 +4,6 @@ using AcneTeledermatology.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AcneTeleContext>(options =>
@@ -34,7 +33,13 @@ using (var scope = app.Services.CreateScope())
      
     var context = services.GetRequiredService<AcneTeleContext>();
     context.Database.EnsureCreated();
-     DbInitializer.Initialize(context);
+    //context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.[User] ON");
+   
+   // DbInitializer.Initialize(context);
+   // context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.[User] OFF");
+  
+
+
 }
 
 app.UseHttpsRedirection();

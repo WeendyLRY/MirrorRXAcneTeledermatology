@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
+
 namespace AcneTeledermatology.Models
 {
     public class UserProfile
