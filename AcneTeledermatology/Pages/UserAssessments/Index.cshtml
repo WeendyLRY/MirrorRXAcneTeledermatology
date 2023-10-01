@@ -25,9 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserAssessment[0].Ingredients)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserAssessment[0].image_to_test_path)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -46,9 +44,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Ingredients)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.image_to_test_path)
-            </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageToTestPath)
+                </td>
+            
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.IDUserAssessment">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.IDUserAssessment">Details</a> |
@@ -58,3 +58,10 @@
 }
     </tbody>
 </table>
+
+
+
+<div>
+    <a asp-page="/UserAssessments/Create" asp-route-AutomaticCreate="true">Start Assessment</a>
+
+</div>

@@ -20,6 +20,9 @@ namespace AcneTeledermatology.Pages.UserProfiles
             _context = context;
         }
 
+      
+
+
         [BindProperty]
         public UserProfile UserProfile { get; set; } = default!;
 
@@ -68,6 +71,8 @@ namespace AcneTeledermatology.Pages.UserProfiles
 
             return RedirectToPage("./Index");
         }
+
+
 
         private bool UserProfileExists(int id)
         {

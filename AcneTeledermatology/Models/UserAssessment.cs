@@ -22,6 +22,8 @@ namespace AcneTeledermatology.Models
 
         public byte[]? image_to_test_path { get; set; }
 
+        public string? ImageToTestPath { get; set; }
+
         ICollection<UserAssessmentHistory> UserAssessmentHistory;
 
 

@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using AcneTeledermatology.Data;
 using AcneTeledermatology.Models;
 
+using X.PagedList;
+
+
 namespace AcneTeledermatology.Pages.UserAssessments
 {
     public class IndexModel : PageModel
@@ -27,6 +30,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
             {
                 UserAssessment = await _context.UserAssessments.ToListAsync();
             }
+
         }
     }
 }

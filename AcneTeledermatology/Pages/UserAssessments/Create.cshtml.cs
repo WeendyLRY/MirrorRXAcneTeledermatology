@@ -11,58 +11,74 @@ using Tensorflow;
 using Tensorflow.Sessions;
 using Tensorflow.Graphs;
 
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+
+
+
 namespace AcneTeledermatology.Pages.UserAssessments
 {
     public class CreateModel : PageModel
     {
         private readonly AcneTeledermatology.Data.AcneTeleContext _context;
-
+        
+        public string Message { get; set; }
         public CreateModel(AcneTeledermatology.Data.AcneTeleContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+    
+
+        //public IActionResult OnGet()
+        //{
+        //    return Page();
+        //}
 
         [BindProperty]
         public UserAssessment UserAssessment { get; set; } = default!;
 
-        [BindProperty]
-        public IFormFile ImageFile { get; set; } // Property for handling image file upload
-
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Page();
+        //    }
+
+        //    _context.UserAssessments.Add(UserAssessment);
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToPage("./Edit");
+        //}
+
+        [BindProperty]
+        public bool AutomaticCreate { get; set; } // Property to indicate automatic creation
+
+        public IActionResult OnGet(bool automaticCreate = false)
         {
-            if (!ModelState.IsValid)
+            if (automaticCreate)
             {
-                return Page();
-            }
-
-            // Find the maximum existing ID in the table
-            int maxId = _context.UserAssessments.Max(u => u.IDUserAssessment);
-
-            // Generate a new unique ID by incrementing the maximum ID
-            UserAssessment.IDUserAssessment = maxId + 1;
-
-            // Assign the current date and time to DateCreated
-            UserAssessment.DateCreated = DateTime.Now;
-
-            // Handle image file upload
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                using (var memoryStream = new MemoryStream())
+                // Create a new UserAssessment record
+                var newAssessment = new UserAssessment
                 {
-                    await ImageFile.CopyToAsync(memoryStream);
-                    UserAssessment.image_to_test_path = memoryStream.ToArray(); // Store image data as byte array
-                }
+                    IDUser = 1, // Hardcoded user ID
+                    DateCreated = DateTime.Now,
+                    Score = 0,
+                    Ingredients = "undefined"
+                };
+
+                _context.UserAssessments.Add(newAssessment);
+                _context.SaveChanges();
+
+                // Redirect to the Edit page for the newly created UserAssessment
+                return RedirectToPage("/UserAssessments/Edit", new { id = newAssessment.IDUserAssessment });
             }
 
-            return RedirectToPage("./Index");
+            return Page();
         }
+
+
 
 
 
