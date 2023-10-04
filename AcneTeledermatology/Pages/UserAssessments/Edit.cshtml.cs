@@ -20,17 +20,22 @@ using NumSharp;
 using Tensorflow.Keras;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AcneTeledermatology.Pages.UserAssessments
 {
     public class EditModel : PageModel
     {
         private readonly AcneTeledermatology.Data.AcneTeleContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EditModel(AcneTeledermatology.Data.AcneTeleContext context)
+        public EditModel(AcneTeledermatology.Data.AcneTeleContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
+
+      
 
         [BindProperty]
         public UserAssessment UserAssessment { get; set; } = default!;
@@ -168,7 +173,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
         public async Task<IActionResult> OnPostUploadImageAsync()
         {
 
-                if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
 
 
@@ -216,7 +221,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
                                 await ImageUpload.FormFile.CopyToAsync(fileStream);
                             }
 
-                            
+
 
                             // Set the existing UserAssessment's ImageToTestPath property to the saved image path
                             existingUserAssessment.ImageToTestPath = imagePath;
@@ -249,6 +254,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
                                     // Update the existing UserAssessment
                                     _context.UserAssessments.Update(existingUserAssessment);
                                     await _context.SaveChangesAsync();
+                                    await UpdateImageRelativePathAsync(existingUserAssessment, imagePath, _webHostEnvironment);
                                     return RedirectToPage("./Details", new { id = existingUserAssessment.IDUserAssessment });
                                 }
                                 else
@@ -280,134 +286,136 @@ namespace AcneTeledermatology.Pages.UserAssessments
 
         }
 
-
-    
-
-//private object PredictAcneSeverity(object memoryStream)
-//    {
-//            try
-//            {
-
-//                // Load the keras model
-//                var model = Tensorflow.Keras.Models.Sequential.LoadModel("acne_detection.h5");
-
-
-//                // Load the TensorFlow model
-//                var modelPath = "acne_detection.h5"; // Replace with the path to your .h5 model file
-//                var graph = new TFGraph();
-//                var session = new TFSession(graph);
-//                graph.Import(File.ReadAllBytes(modelPath));
-
-//                // Convert the memoryStream to a byte array
-//                byte[] imageBytes = ((MemoryStream)memoryStream).ToArray();
-
-//                // Prepare the input tensor (assuming you have a placeholder named 'input' in your model)
-//                var input = graph["input"][0];
-
-//                // Convert the input data to a NumPy array
-//                var inputArray = np.array(imageBytes);
-
-//                // Run the model to get the prediction
-//                var runner = session.GetRunner();
-//                runner.AddInput(input, inputArray);
-//                runner.Fetch("output"); // Replace 'output' with the appropriate output node name
-
-//                var output = runner.Run()[0];
-
-//                // Convert the TensorFlow output tensor to a C# array
-//                var prediction = output.GetValue() as float[,];
-
-//                // Map the TensorFlow prediction to the desired output
-//                int mappedAcneScore = MapTensorFlowPredictionToAcneScore(prediction);
-
-//                return mappedAcneScore;
-//            }
-//            catch (Exception ex)
-//            {
-//                // Handle any exceptions that may occur during the prediction process
-//                Console.WriteLine($"An error occurred during acne severity prediction: {ex.Message}");
-//                return null; // You may want to handle this more gracefully in your application
-//                }
-//            }
-
-
-    private int MapTensorFlowPredictionToAcneScore(dynamic prediction)
+        private void LogValidationErrors()
         {
-            double x = prediction[0];
-            double y = prediction[1];
-            double z = prediction[2];
-
-            if (x > y && x > z)
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
             {
-                return 1; // Mild to none
-            }
-            else if (y > x && y > z)
-            {
-                return 2; // Moderate
-            }
-            else
-            {
-                return 3; // Worst
+                Debug.WriteLine(error.ErrorMessage);
             }
         }
 
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        // Handle model state errors if needed
-        //        return Page();
-        //    }
 
-        //    // Your other logic for updating UserAssessment properties
+        private async Task<ImageUploadResult> HandleFileUploadAsync()
+        {
+            var path = "C:\\Users\\weend\\source\\repos\\AcneTeledermatology\\AcneTeledermatology\\wwwroot\\uploads\\img\\";
 
-        //    // Call the file upload handler
-        //    return await OnPostUploadAsync();
-        //}
+            if (ImageUpload.FormFile != null && ImageUpload.FormFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ImageUpload.FormFile.CopyToAsync(memoryStream);
 
-        //public async Task<IActionResult> OnPostUploadAsync()
-        //{
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        await ImageUpload.FormFile.CopyToAsync(memoryStream);
-        //        //  Upload the file if it meets your size criteria
-        //        if (memoryStream.Length <= 2097152) // 2 MB limit
-        //        {
-        //            // Fetch the existing UserAssessment by its ID
-        //            var existingUserAssessment = await _context.UserAssessments.FindAsync(UserAssessment.IDUserAssessment);
+                    if (memoryStream.Length <= 2097152) // 2 MB limit
+                    {
+                        var existingUserAssessment = await _context.UserAssessments.FindAsync(UserAssessment.IDUserAssessment);
 
+                        if (existingUserAssessment != null)
+                        {
+                            var fileName = $"{UserAssessment.IDUserAssessment}_{DateTime.Now.Ticks}.jpg";
+                            var imagePath = Path.Combine(path, fileName);
 
-        //            if (existingUserAssessment != null)
-        //            {
-        //                // Set the existing UserAssessment's image_to_test_path property to memoryStream.ToArray()
-        //                existingUserAssessment.image_to_test_path = memoryStream.ToArray();
+                            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                            {
+                                await ImageUpload.FormFile.CopyToAsync(fileStream);
+                            }
 
-        //                // Manually set Ingredients to its existing value
-        //                // This avoids validation errors since you're not modifying it
-        //                existingUserAssessment.Ingredients = existingUserAssessment.Ingredients;
+                            
 
 
-        //                // Update the existing UserAssessment
-        //                _context.UserAssessments.Update(existingUserAssessment);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            else
-        //            {
-        //                return NotFound(); // UserAssessment not found
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("ImageUpload.FormFile", "The image is too large.");
-        //        }
+                            existingUserAssessment.ImageToTestPath = imagePath;
 
-        //        return RedirectToPage("./Index");
-        //    }
-        //}
+                            _context.UserAssessments.Update(existingUserAssessment);
+                            await _context.SaveChangesAsync();
 
-        
-        
+
+                            return new ImageUploadResult { IsSuccess = true, ImagePath = imagePath };
+                        }
+                        else
+                        {
+                            return new ImageUploadResult { IsSuccess = false };
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ImageUpload.FormFile", "The image is too large.");
+                    }
+                }
+            }
+
+            return new ImageUploadResult { IsSuccess = false };
+        }
+
+        public async Task UpdateImageRelativePathAsync(UserAssessment existingUserAssessment, string imagePath, IWebHostEnvironment webHostEnvironment)
+        {
+            // Calculate the relative path based on the web root path and imagePath
+            var webRootPath = webHostEnvironment.WebRootPath;
+            var relativePath = imagePath.Substring(webRootPath.Length).Replace("\\", "/");
+
+            // Update the UserAssessment's ImageRelativePath property
+            existingUserAssessment.ImageRelativePath = relativePath;
+
+            // Save the changes to the database
+            _context.UserAssessments.Update(existingUserAssessment);
+            await _context.SaveChangesAsync();
+        }
+
+
+        private async Task<HttpResponseMessage> CallApiWithImageAsync(string imagePath)
+        {
+            var apiUrl = "http://127.0.0.1:5000/predict";
+            var payload = new { image_path = imagePath };
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+                return await httpClient.PostAsync(apiUrl, content);
+            }
+        }
+
+        private async Task<ApiResponse> ParseApiResponseAsync(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+            }
+
+            return null;
+        }
+
+        private void UpdateUserAssessmentWithApiResponse(ApiResponse apiData)
+        {
+            var existingUserAssessment = _context.UserAssessments.Find(UserAssessment.IDUserAssessment);
+            existingUserAssessment.Ingredients = string.Join(", ", apiData.Ingredients);
+            existingUserAssessment.Score_In_text = apiData.AcneSeverityName;
+            existingUserAssessment.Score = apiData.AcneScore;
+            _context.UserAssessments.Update(existingUserAssessment);
+            _context.SaveChanges();
+        }
+
+        private IActionResult RedirectToDetailsPage(int userAssessmentId)
+        {
+            return RedirectToPage("./Details", new { id = userAssessmentId });
+        }
+
+        private IActionResult RedirectToIndexPage()
+        {
+            return RedirectToPage("./Index");
+        }
+
+        private class ImageUploadResult
+        {
+            public bool IsSuccess { get; set; }
+            public string ImagePath { get; set; }
+        }
+
+
+
+
+
+
 
 
 
