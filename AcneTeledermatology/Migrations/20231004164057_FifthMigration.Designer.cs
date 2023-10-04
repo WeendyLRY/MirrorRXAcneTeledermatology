@@ -4,6 +4,7 @@ using AcneTeledermatology.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcneTeledermatology.Migrations
 {
     [DbContext(typeof(AcneTeleContext))]
-    partial class AcneTeleContextModelSnapshot : ModelSnapshot
+    [Migration("20231004164057_FifthMigration")]
+    partial class FifthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,9 +117,6 @@ namespace AcneTeledermatology.Migrations
 
                     b.Property<int>("IDUser")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImageRelativePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageToTestPath")
                         .HasColumnType("nvarchar(max)");

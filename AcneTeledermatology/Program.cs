@@ -11,6 +11,7 @@ builder.Services.AddDbContext<AcneTeleContext>(options =>
 
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

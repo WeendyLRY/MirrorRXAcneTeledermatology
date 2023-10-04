@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Http;
 
 using NumSharp;
 using Tensorflow.Keras;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace AcneTeledermatology.Pages.UserAssessments
 {
@@ -214,16 +216,48 @@ namespace AcneTeledermatology.Pages.UserAssessments
                                 await ImageUpload.FormFile.CopyToAsync(fileStream);
                             }
 
+                            
+
                             // Set the existing UserAssessment's ImageToTestPath property to the saved image path
                             existingUserAssessment.ImageToTestPath = imagePath;
 
+                            // Call the API and pass the image path into the API
+
+                            // Define the API endpoint
+                            var apiUrl = "http://127.0.0.1:5000/predict"; // Replace with your actual API endpoint
+
+                            // Create a JSON payload with the image path
+                            var payload = new { image_path = imagePath };
+
+                            // Send a POST request to the API
+                            using (var httpClient = new HttpClient())
+                            {
+                                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+                                var response = await httpClient.PostAsync(apiUrl, content);
+
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    var apiResponse = await response.Content.ReadAsStringAsync();
+                                    var apiData = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+
+                                    // Map the API response fields to UserAssessment properties
+                                    existingUserAssessment.Ingredients = string.Join(", ", apiData.Ingredients);
+                                    existingUserAssessment.Score_In_text = apiData.AcneSeverityName;
+                                    existingUserAssessment.Score = apiData.AcneScore;
 
 
-                            // Manually set Ingredients to its existing value
-                            existingUserAssessment.Ingredients = existingUserAssessment.Ingredients;
+                                    // Update the existing UserAssessment
+                                    _context.UserAssessments.Update(existingUserAssessment);
+                                    await _context.SaveChangesAsync();
+                                    return RedirectToPage("./Details", new { id = existingUserAssessment.IDUserAssessment });
+                                }
+                                else
+                                {
+                                    // Handle API error
+                                    ModelState.AddModelError("ImageUpload.FormFile", "API request failed.");
+                                }
+                            }
 
-                            // Set the Score field to the predicted acne severity (modify this based on your prediction logic)
-                            existingUserAssessment.Score = 3;
 
                             // Update the existing UserAssessment
                             _context.UserAssessments.Update(existingUserAssessment);
@@ -245,6 +279,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
             return RedirectToPage("./Index");
 
         }
+
 
     
 
@@ -371,6 +406,8 @@ namespace AcneTeledermatology.Pages.UserAssessments
         //    }
         //}
 
+        
+        
 
 
 
@@ -378,6 +415,7 @@ namespace AcneTeledermatology.Pages.UserAssessments
         {
           return (_context.UserAssessments?.Any(e => e.IDUserAssessment == id)).GetValueOrDefault();
         }
+
 
 
 
