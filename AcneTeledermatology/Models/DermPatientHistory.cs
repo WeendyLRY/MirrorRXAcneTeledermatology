@@ -17,8 +17,8 @@ namespace AcneTeledermatology.Models
         public DateTime? DateCreated { get; set; }
 
 
-        ICollection<Derm> Derm;
+         ICollection<DermProfile> DermProfile;
 
-        ICollection<UserDermRequestResponse> UserDermRequestResponses;
+         ICollection<UserDermRequestResponse> UserDermRequestResponses;
     }
 }

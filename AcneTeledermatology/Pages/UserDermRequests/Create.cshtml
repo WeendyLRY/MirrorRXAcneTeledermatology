@@ -1,0 +1,113 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequests.CreateModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_PatientLayout";
+
+}
+
+<h1>Create</h1>
+
+<h4>UserDermRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Auto-populate UserDermRequest.IDUserProfile and UserDermRequest.IDUserSupplementalAcneProfile -->
+         @*    <input type="hidden" asp-for="UserDermRequest.IDUserProfile" />
+            <input type="hidden" asp-for="UserDermRequest.IDUserSupplementalAcneProfile" /> *@
+
+            <input type="hidden" asp-for="UserDermRequest.Id" />
+            <input type="hidden" asp-for="UserDermRequest.hasDerm" />
+
+
+            <div class="form-group">
+                <label type="hidden" asp-for="UserDermRequest.DateCreated" class="control-label"></label>
+                <input type = "hidden" asp-for="UserDermRequest.DateCreated" class="form-control" />
+                <span asp-validation-for="UserDermRequest.DateCreated" class="text-danger"></span>
+            </div>
+
+           @*  <div class="form-group" style="display: none;" id="UserDermRequest_IDUserProfile">
+                <label asp-for="UserDermRequest.IDUserProfile" class="control-label"></label>
+                <input asp-for="UserDermRequest.IDUserProfile" class="form-control" />
+                <span asp-validation-for="UserDermRequest.IDUserProfile" class="text-danger"></span>
+            </div> *@
+            <div class="form-group" style="display: none;" id="UserDermRequest_IDUserSupplementalAcneProfile">
+                <label asp-for="UserDermRequest.IDUserSupplementalAcneProfile" class="control-label"></label>
+                <input asp-for="UserDermRequest.IDUserSupplementalAcneProfile" class="form-control" />
+                <span asp-validation-for="UserDermRequest.IDUserSupplementalAcneProfile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserDermRequest.Comments" class="control-label"></label>
+                <input asp-for="UserDermRequest.Comments" class="form-control" />
+                <span asp-validation-for="UserDermRequest.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // $(document).ready(function () {
+        //     var userId = "@User.FindFirstValue(ClaimTypes.NameIdentifier)";
+
+        //     // Use Ajax to retrieve IDUserProfile
+        //     $.ajax({
+        //         url: '/UserDermRequests/GetIDUserProfile',
+        //         method: 'GET',
+        //         data: { userId: userId },
+        //         success: function (data) {
+        //             // Set the value of the IDUserProfile field
+        //             $("input[name='UserDermRequest.IDUserProfile']").val(data);
+        //         },
+        //         error: function () {
+        //             // Handle the error if needed
+        //             console.error('Failed to retrieve IDUserProfile.');
+        //         }
+        //     });
+
+        //     // Use Ajax to retrieve IDUserSupplementalAcneProfile
+        //     $.ajax({
+        //         url: '/UserDermRequests/GetIDUserSupplementalAcneProfile',
+        //         method: 'GET',
+        //         data: { userId: userId },
+        //         success: function (data) {
+        //             // Set the value of the IDUserSupplementalAcneProfile field
+        //             $("input[name='UserDermRequest.IDUserSupplementalAcneProfile']").val(data);
+        //         },
+        //         error: function () {
+        //             // Handle the error if needed
+        //             console.error('Failed to retrieve IDUserSupplementalAcneProfile.');
+        //         }
+        //     });
+        // });
+
+
+        
+                // Get the user's ID from wherever it's available in your context
+                var userId = "@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value";
+
+        // Set the value of the hidden input
+        document.querySelector("input[name='UserDermRequest.Id']").value = userId;
+    
+
+       
+    </script>
+}

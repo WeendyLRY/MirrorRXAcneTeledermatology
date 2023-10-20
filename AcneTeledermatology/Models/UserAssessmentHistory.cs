@@ -15,6 +15,6 @@ namespace AcneTeledermatology.Models
         public int IDUserAssessment { get; set; } // Foreign Key to UserAssessment, Unique, Not Null
 
 
-        ICollection<UserAssessment> UserAssessment;
+         ICollection<UserAssessment> UserAssessment;
     }
 }

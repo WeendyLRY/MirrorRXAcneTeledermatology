@@ -1,6 +1,7 @@
 ﻿using AcneTeledermatology.Models;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Newtonsoft.Json;
+using NumSharp.Utilities;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,8 +15,7 @@ namespace AcneTeledermatology.Models
 
         [Required]
         [ForeignKey("User")]
-        public int IDUser { get; set; } // Foreign Key to User, Unique, Not Null
-
+        public string Id { get; set; } // Foreign Key
         public DateTime DateCreated { get; set; }
 
         public int? Score { get; set; }
@@ -30,10 +30,10 @@ namespace AcneTeledermatology.Models
 
         public string? ImageRelativePath { get; set; }
 
-        ICollection<UserAssessmentHistory> UserAssessmentHistory;
+         ICollection<UserAssessmentHistory> UserAssessmentHistory;
 
 
-        ICollection<User> User;
+        ICollection <User> User { get; set; }
 
     }
 

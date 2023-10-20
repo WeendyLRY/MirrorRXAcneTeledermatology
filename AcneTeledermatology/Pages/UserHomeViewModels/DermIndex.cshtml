@@ -1,0 +1,37 @@
+﻿@page
+@* @model AcneTeledermatology.Pages.UserHomeViewModels.DermIndexModel *@
+@model AcneTeledermatology.Models.User
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@{
+}
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_DermLayout";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>User_authenticated</p>
+    <p>isDerm Claim Value: @User.FindFirstValue("isDerm")</p>
+    <p>IsAuthenticated: @User.Identity.IsAuthenticated</p>
+
+    
+   
+}
+else
+{
+    <p>You are not authenticated. Please log in.</p>
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Mirror RX</h1>
+    <p>Option 1: <a class="nav-link text-dark" asp-area="" asp-page="/DermProfile/Edit" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Update Derm Profile</a>.</p>
+    <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/DermPatientHistory/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">View current patients</a>.</p>
+    <p>Option 3: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true">View unattended patient</a>.</p>
+    <p>Option 4: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequestResponses/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true">View posted reviews</a>.</p>
+
+    <a asp-page="/UserAssessments/Create">Start Assessment</a>
+</div>

@@ -99,10 +99,10 @@ namespace AcneTeledermatology.Pages.UserAssessments
         //        var errors = ModelState.Values.SelectMany(v => v.Errors);
         //        foreach (var error in errors)
         //        {
-        //           // Log or print the validation error messages for debugging
+        //            // Log or print the validation error messages for debugging
 
-        //           Debug.WriteLine(error.ErrorMessage);
-        //            }
+        //            Debug.WriteLine(error.ErrorMessage);
+        //        }
         //        return Page();
         //    }
 

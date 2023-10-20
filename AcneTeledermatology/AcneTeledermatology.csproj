@@ -7,10 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\CANCELLEDUserSupplementalAcneProfiles\**" />
+    <Content Remove="Pages\CANCELLEDUserSupplementalAcneProfiles\**" />
+    <EmbeddedResource Remove="Pages\CANCELLEDUserSupplementalAcneProfiles\**" />
+    <None Remove="Pages\CANCELLEDUserSupplementalAcneProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\UserLogin.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\UserSupplementalAcneProfiles\DermViewForDetailsOfPatientSupplementalAcneScores.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -22,9 +39,31 @@
 
   <ItemGroup>
     <Folder Include="Pages\UserAssessmentHistory\" />
-    <Folder Include="Pages\UserDermRequest\" />
+    <Folder Include="Pages\UserProfiles\NewFolder\" />
     <Folder Include="Pages\User\" />
-    <Folder Include="wwwroot\uploads\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\ConfirmEmail.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Logout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Email.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_Layout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <None Include="Pages\UserSupplementalAcneProfiles\DermViewForDetailsOfPatientSupplementalAcneScores.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Acne-Blog-Header.jpg" />
+    <Content Include="Pages\Doctor-House-Hospital-Staff.jpg" />
   </ItemGroup>
 
 </Project>

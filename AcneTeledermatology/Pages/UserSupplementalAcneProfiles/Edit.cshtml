@@ -1,0 +1,109 @@
+﻿@page "/UserSupplementalAcneProfiles/Edit"
+@model AcneTeledermatology.Pages.UserSupplementalAcneProfiles.EditModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Edit";
+   
+        Layout = "_PatientLayout";
+    
+}
+
+<h1>Edit</h1>
+
+<h4>UserSupplementalAcneProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-page="/UserSupplementalAcneProfiles/Edit"
+           asp-route-id="@Model.UserSupplementalAcneProfile.IDUserSupplementalAcneProfile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <!-- Remove input for Id -->
+
+            <input type="hidden" asp-page="./UserSupplementalAcneProfiles/Edit" />
+            <input type="hidden" asp-for="UserSupplementalAcneProfile.IDUserSupplementalAcneProfile" />
+            <input type="hidden" asp-for="UserSupplementalAcneProfile.Id" />
+
+
+
+            <!-- Sleeping Pattern Dropdown -->
+            <div class="form-group">
+                <label asp-for="UserSupplementalAcneProfile.SleepingPattern" class="control-label"></label>
+                <select asp-for="UserSupplementalAcneProfile.SleepingPattern" class="form-control">
+                    <option value="1">Less than 5 hours of regular sleep</option>
+                    <option value="2">Less than 8 hours of regular sleep</option>
+                    <option value="3">A regular sleep of at least 8 hours every day</option>
+                </select>
+                <span asp-validation-for="UserSupplementalAcneProfile.SleepingPattern" class="text-danger"></span>
+            </div>
+
+            <!-- Sunblock Habit Dropdown -->
+            <div class="form-group">
+                <label asp-for="UserSupplementalAcneProfile.SunblockHabit" class="control-label"></label>
+                <select asp-for="UserSupplementalAcneProfile.SunblockHabit" class="form-control">
+                    <option value="1">Doesn't wear sunscreen regularly when going outdoor</option>
+                    <option value="2">Wears sunscreen sometimes when going outdoor</option>
+                    <option value="3">Wears sunscreen regularly</option>
+                    <option value="4">Wears sunscreen regularly and sometimes touch up sunscreen throughout the day</option>
+                    <option value="5">Regular sunscreen application when going outdoor and frequently touch up sunscreen</option>
+                </select>
+                <span asp-validation-for="UserSupplementalAcneProfile.SunblockHabit" class="text-danger"></span>
+            </div>
+
+            <!-- Diet Habit Dropdown -->
+            <div class="form-group">
+                <label asp-for="UserSupplementalAcneProfile.DietHabit" class="control-label"></label>
+                <select asp-for="UserSupplementalAcneProfile.DietHabit" class="form-control">
+                    <option value="1">Junk food on a regular basis, barely drink water</option>
+                    <option value="2">Fast food and junk food less than 3 times a week, less than 4 glasses of water</option>
+                    <option value="3">Balanced diet sometimes but regular hydration every day (8 glasses of water)</option>
+                    <option value="4">Balanced diet at least 5 times a week, at least 6 glasses of water every day</option>
+                    <option value="5">Balanced diet almost every day and at least 8 glasses of water every day</option>
+                </select>
+                <span asp-validation-for="UserSupplementalAcneProfile.DietHabit" class="text-danger"></span>
+            </div>
+
+            <!-- Sun Exposure Dropdown -->
+            <div class="form-group">
+                <label asp-for="UserSupplementalAcneProfile.SunExposure" class="control-label"></label>
+                <select asp-for="UserSupplementalAcneProfile.SunExposure" class="form-control">
+                    <option value="1">Getting at least 8 hours of sun every day</option>
+                    <option value="2">Getting about 4 hours to 7 hours of sunlight almost every day</option>
+                    <option value="3">Getting about 4 hours to 5 hours of sunlight at least 4 days a week</option>
+                    <option value="4">Getting about less than 5 hours of sunlight, maximum 4 days</option>
+                    <option value="5">Less than 3 hours of sunlight, maximum 3 days</option>
+                </select>
+                <span asp-validation-for="UserSupplementalAcneProfile.SunExposure" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="UserSupplementalAcneProfile.SkincareProducts" class="control-label"></label>
+                <input asp-for="UserSupplementalAcneProfile.SkincareProducts" class="form-control" />
+                <span asp-validation-for="UserSupplementalAcneProfile.SkincareProducts" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        // Get the user's ID from wherever it's available in your context
+        var userId = "@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value";
+
+        // Set the value of the hidden input
+        document.querySelector("input[name='UserSupplementalAcneProfile.Id']").value = userId;
+    </script>
+}

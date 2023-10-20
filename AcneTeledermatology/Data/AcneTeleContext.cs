@@ -5,10 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AcneTeledermatology.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection.Metadata;
 
 namespace AcneTeledermatology.Data
 {
-    public class AcneTeleContext : DbContext
+    public class AcneTeleContext : IdentityDbContext<IdentityUser>
+
+    //public class AcneTeleContext : DbContext
     {
         public AcneTeleContext (DbContextOptions<AcneTeleContext> options)
             : base(options)
@@ -28,10 +33,78 @@ namespace AcneTeledermatology.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure table names if needed (optional)
+            base.OnModelCreating(modelBuilder);
+           
+
+            modelBuilder.Entity<UserSupplementalAcneProfile>().HasKey(e => e.IDUserSupplementalAcneProfile);
+
+            //        modelBuilder.Entity<UserSupplementalAcneProfile>()
+            //.HasOne(up => up.User)
+            //.WithMany(u => u.UserSupplementalAcneProfiles)
+            //.HasForeignKey(up => up.Id)
+            //.OnDelete(DeleteBehavior.Cascade);
+
+
+            //        modelBuilder.Entity<User>()
+            //  .HasMany(e => e.UserSupplementalAcneProfiles)
+            //  .WithOne(e => e.User)
+            //  .HasForeignKey(e => e.Id)
+            //        .IsRequired(false);
+
+            //        //modelBuilder.Entity<User>()
+            //        //  .HasOne(e => e.UserProfile)
+            //        //.WithOne(e => e.User)
+            //        //  .HasForeignKey<UserProfile>(e => e.Id)
+            //        //  .IsRequired()
+            //        //  .OnDelete(DeleteBehavior.Cascade);
+
+
+            //        modelBuilder.Entity<UserSupplementalAcneProfile>()
+            //   .HasMany(e => e.UserDermRequests)
+            //   .WithOne(e => e.UserSupplementalAcneProfile)
+            //   .HasForeignKey(e => e.IDUserSupplementalAcneProfile)
+            //   .IsRequired(false)
+            //   .OnDelete(DeleteBehavior.Cascade);
+
+            //        modelBuilder.Entity<User>()
+            //   .HasMany(e => e.UserAssessments)
+            //   .WithOne(e => e.User)
+            //   .HasForeignKey(e => e.Id)
+            //   .IsRequired(false)
+            //   .OnDelete(DeleteBehavior.Cascade);
+
+
+            //        modelBuilder.Entity<User>()
+            //  .HasMany(e => e.UserDermRequests)
+            //  .WithOne(e => e.User)
+            //  .HasForeignKey(e => e.Id)
+            //  .IsRequired(false)
+            //  .OnDelete(DeleteBehavior.Cascade);
+
+
+
+            //        modelBuilder.Entity<UserProfile>()
+            //.HasMany(e => e.UserDermRequests)
+            //.WithOne(e => e.UserProfile)
+            //.HasForeignKey(e => e.IDUserProfile)
+            //.IsRequired(false)
+            //.OnDelete(DeleteBehavior.Cascade);
+
+
+            //       modelBuilder.Entity<UserDermRequestResponse>()
+            //.HasOne(udrr => udrr.DermProfile)
+            //.WithMany(dp => dp.UserDermRequestResponses)
+            //.HasForeignKey(udrr => udrr.IDDermProfile)
+            //.OnDelete(DeleteBehavior.Cascade);
+
+
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<UserProfile>().ToTable("UserProfile");
+
             modelBuilder.Entity<UserSupplementalAcneProfile>().ToTable("UserSupplementalAcneProfile");
+
+
+
             modelBuilder.Entity<UserAssessment>().ToTable("UserAssessment");
             modelBuilder.Entity<UserAssessmentHistory>().ToTable("UserAssessmentHistory");
             modelBuilder.Entity<UserDermRequest>().ToTable("UserDermRequest");
@@ -40,7 +113,13 @@ namespace AcneTeledermatology.Data
             modelBuilder.Entity<DermProfile>().ToTable("DermProfile");
             modelBuilder.Entity<DermPatientHistory>().ToTable("DermPatientHistory");
         }
+
+        
     }
+
+
+
+
 
     
 

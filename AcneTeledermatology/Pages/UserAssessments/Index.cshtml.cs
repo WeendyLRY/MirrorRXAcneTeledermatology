@@ -10,7 +10,6 @@ using AcneTeledermatology.Models;
 
 using X.PagedList;
 
-
 namespace AcneTeledermatology.Pages.UserAssessments
 {
     public class IndexModel : PageModel
@@ -22,15 +21,24 @@ namespace AcneTeledermatology.Pages.UserAssessments
             _context = context;
         }
 
-        public IList<UserAssessment> UserAssessment { get;set; } = default!;
+        public IList<UserAssessment> UserAssessment { get; set; } = default!;
+        public string UserId { get; set; } = "";
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string uid = "")
         {
-            if (_context.UserAssessments != null)
+            if (!string.IsNullOrEmpty(uid))
+            {
+                // Filter user assessments by user ID
+                UserAssessment = await _context.UserAssessments
+                    .Where(ua => ua.Id == uid)
+                    .ToListAsync();
+            }
+            else
             {
                 UserAssessment = await _context.UserAssessments.ToListAsync();
             }
 
+            UserId = uid;
         }
     }
 }

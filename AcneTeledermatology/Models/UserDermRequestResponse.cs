@@ -9,8 +9,8 @@ namespace AcneTeledermatology.Models
         public int IDUserDermRequestResponse { get; set; } // Primary Key
 
         [Required]
-        [ForeignKey("Derm")]
-        public int IDDerm { get; set; } // Foreign Key to Derm, Unique, Not Null
+        [ForeignKey("DermProfile")]
+        public int IDDermProfile { get; set; } // Foreign Key to Derm, Unique, Not Null
 
         [ForeignKey("UserDermRequest")]
         public int? IDUserDermRequest { get; set; } // Foreign Key to UserDermRequest
@@ -21,9 +21,13 @@ namespace AcneTeledermatology.Models
 
         public string DermSuggestion { get; set; }
 
-        ICollection<Derm> Derm;
 
-        ICollection<DermPatientHistory> DermPatientHistory;
+
+         ICollection<DermPatientHistory> DermPatientHistory;
+
+         DermProfile DermProfile;
+
+         ICollection<UserDermRequest> UserDermRequest;
 
     }
 }

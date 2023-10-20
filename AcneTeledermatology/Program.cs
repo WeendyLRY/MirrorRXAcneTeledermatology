@@ -1,17 +1,37 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AcneTeledermatology.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
+builder.Services.AddDefaultIdentity<AcneTeledermatology.Models.User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AcneTeleContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AcneTeleContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AcneTeleContext") ?? throw new InvalidOperationException("Connection string 'AcneTeleContext' not found.")));
+    
+options.UseSqlServer(builder.Configuration.GetConnectionString("AcneTeleContext") ?? throw new InvalidOperationException("Connection string 'AcneTeleContext' not found.")));
+
+
 
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddHttpClient();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -41,14 +61,24 @@ using (var scope = app.Services.CreateScope())
   
 
 
+
 }
+
+
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+
+app.UseSession();
 
 app.MapRazorPages();
 

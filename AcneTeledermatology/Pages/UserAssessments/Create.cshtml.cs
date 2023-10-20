@@ -55,14 +55,22 @@ namespace AcneTeledermatology.Pages.UserAssessments
         [BindProperty]
         public bool AutomaticCreate { get; set; } // Property to indicate automatic creation
 
-        public IActionResult OnGet(bool automaticCreate = false)
+        
+
+        public IActionResult OnGet(string? uid, bool automaticCreate = false)
         {
+            if (string.IsNullOrEmpty(uid))
+            {
+                // Handle the case where userId is not provided.
+                return BadRequest("User ID is required. Please log in first.");
+            }
+
             if (automaticCreate)
             {
                 // Create a new UserAssessment record
                 var newAssessment = new UserAssessment
                 {
-                    IDUser = 1, // Hardcoded user ID
+                    Id = uid, 
                     DateCreated = DateTime.Now,
                     Score = 0,
                     Ingredients = "undefined"
