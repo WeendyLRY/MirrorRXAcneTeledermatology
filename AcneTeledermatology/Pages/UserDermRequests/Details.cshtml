@@ -3,10 +3,11 @@
 
 @{
     ViewData["Title"] = "Details";
-    
+
 
     var isDermQueryParam = HttpContext.Request.Query["isDerm"];
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
 
     if (isDermQueryParam == "true")
     {
@@ -75,4 +76,14 @@
                  </div>
             }
         }
+
+        @if (isComingFromWhere=="uddr_index")
+        {
+            <div>
+                <a asp-page="/UserProfiles/PatientProfile" asp-route-uid="@Model.UserDermRequest.Id" asp-route-isDerm="true">View Profile of User</a>
+            </div>
+        }
+
+
+
     </div>
