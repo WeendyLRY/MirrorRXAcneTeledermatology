@@ -4,11 +4,114 @@
     ViewData["Title"] = "Home page";
 }
 
+<style>
+
+
+    /* Text on top of the image and overlay */
+    .custom-button a {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        text-decoration: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2; /* Ensure text is on top of the overlays */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow to the text */
+    }
+
+    /* Base styles for the custom buttons */
+    .custom-button {
+        display: inline-block;
+        width: 250px; /* Set a fixed width for the button */
+        height: 250px; /* Set a fixed height for the button */
+        background-image: url('Acne-Blog-Header.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+        /* Translucent black overlay */
+        .custom-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Translucent black layer */
+        }
+
+        /* Hover effect: Opaque gray overlay on hover */
+        .custom-button:hover::before {
+            background-color: rgba(128, 128, 128, 0.7); /* Opaque gray layer on hover */
+        }
+
+        /* Text on top of the image and overlay */
+        .custom-button span {
+            position: relative;
+            z-index: 1; /* Ensure text is on top of the overlays */
+            color: white; /* Text in white */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow to the text */
+        }
+
+        /* Adjust background image properties */
+        .custom-button img {
+            position: relative;
+            z-index: 1; /* Ensure image is on top of the overlays */
+        }
+
+    /* Additional styles for the patient login button */
+    .custom-button-patient-login {
+        background-image: url('/uploads/img/Acne-Blog-Header.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Additional styles for the dermatologist login button */
+    .custom-button-derm-login {
+        background-image: url('/uploads/img/Doctor-House-Hospital-Staff.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+</style>
+
 <div class="text-center">
-    <h1 class="display-4">Mirror RX</h1>
-    <p>Option 1: <a href="https://docs.microsoft.com/aspnet/core">Create a profile</a>.</p>
-    <p>Option 2: <a href="https://docs.microsoft.com/aspnet/core">Assessment of acne severity</a>.</p>
-    <p>Option 3: <a href="https://docs.microsoft.com/aspnet/core">Supplemental acne score</a>.</p>
-    <p>Option 4: <a href="https://docs.microsoft.com/aspnet/core">Get help from derm</a>.</p>
+    <h1 class="display-4">Welcome!</h1>
+   
+    <div class="custom-button custom-button-patient-login">
+    <p> <a asp-area="" asp-page="/PatientDirectoryPage" id="patient-link"><span>Click here if you are a patient.</span></a>.</p>
+     </div>
+    
+     <p></p>
+    <p></p>
+
+    <div class="custom-button custom-button-derm-login">
+    <p><a asp-area="" asp-page="/DermDirectoryPage" id="dermatologist-link"><span>Click here if you are a dermatologist.</span></a>.</p>
+    </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Add a click event to the "Click here if you are a patient" link
+        $("#patient-link").on("click", function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            if (confirm("You clicked the patient link. Do you want to navigate to the patient page?")) {
+                window.location.href = $(this).attr("href");
+            }
+        });
+
+        // Add a click event to the "Click here if you are a dermatologist" link
+        $("#dermatologist-link").on("click", function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            if (confirm("You clicked the dermatologist link. Do you want to navigate to the dermatologist page?")) {
+                window.location.href = $(this).attr("href");
+            }
+        });
+    });
+</script>

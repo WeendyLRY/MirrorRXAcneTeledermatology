@@ -1,0 +1,54 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequests.IndexModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Index";
+    
+    Layout = "_PatientLayout";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequest[0].DateCreated)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequest[0].Comments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model.UserDermRequest)
+        {
+
+            <tr>
+               @*  <td>
+                    @Html.DisplayFor(modelItem => item.IDUserProfile)
+                </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDUserSupplementalAcneProfile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.IDUserDermRequest">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.IDUserDermRequest">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

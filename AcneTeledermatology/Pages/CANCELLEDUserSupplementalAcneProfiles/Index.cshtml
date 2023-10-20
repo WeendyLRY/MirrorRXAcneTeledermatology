@@ -1,0 +1,66 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserSupplementalAcneProfiles.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SleepingPattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SunblockHabit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].DietHabit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SkincareProducts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SunExposure)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserSupplementalAcneProfile) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SleepingPattern)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SunblockHabit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DietHabit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkincareProducts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SunExposure)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.IDUserSupplementalAcneProfile">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.IDUserSupplementalAcneProfile">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.IDUserSupplementalAcneProfile">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

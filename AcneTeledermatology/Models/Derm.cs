@@ -1,15 +1,21 @@
 ﻿using AcneTeledermatology.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Derm
+namespace AcneTeledermatology.Models
 {
-    [Key]
-    public int IDDerma { get; set; } // Primary Key
+    public class Derm 
+    {
+        [Key]
+        public int IDDerm { get; set; } // Primary Key
 
-    ICollection<UserDermRequestResponse> UserDermRequestResponses;
 
-    ICollection<DermPatientHistory> DermPatientHistories;
+        public ICollection<UserDermRequestResponse> UserDermRequestResponses;
 
-    ICollection<DermProfile> DermProfiles;
+        public ICollection<DermPatientHistory> DermPatientHistories;
+
+        public ICollection<DermProfile> DermProfile;
+    }
+
 }
-

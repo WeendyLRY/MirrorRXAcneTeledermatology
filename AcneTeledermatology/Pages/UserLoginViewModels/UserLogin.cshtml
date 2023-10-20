@@ -1,0 +1,37 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserLoginModel
+
+@{
+    ViewData["Title"] = "UserLogin";
+}
+
+@{
+    var loggedInWrongDirectory = Request.Query["loggedInWrongDirectory"].FirstOrDefault();
+
+    if (loggedInWrongDirectory == "true")
+    {
+        <p>You logged in as a derm, but your account is registered as a patient. Try again or  <a asp-page="/UserLoginViewModels/DermCreateProfile">create a new account as derm. </a>.</p>
+    }
+}
+
+
+
+<h1>Login</h1>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Input.Username"></label>
+        <input asp-for="Input.Username" class="form-control" />
+        <span asp-validation-for="Input.Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" type="password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

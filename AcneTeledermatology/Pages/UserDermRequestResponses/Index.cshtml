@@ -1,0 +1,72 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequestResponses.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
+
+
+}
+
+<h1>Index of patients you treated</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequestResponse[0].IDDermProfile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequestResponse[0].IDUserDermRequest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequestResponse[0].DermComment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequestResponse[0].DermPrescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequestResponse[0].DermSuggestion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserDermRequestResponse) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDDermProfile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDUserDermRequest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DermComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DermPrescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DermSuggestion)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.IDUserDermRequestResponse">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.IDUserDermRequestResponse">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.IDUserDermRequestResponse">Delete</a> |
+                <a asp-page="/UserDermRequests/Details" asp-route-id="@item.IDUserDermRequest" asp-route-comingFrom="uddr_index">View User Profile</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

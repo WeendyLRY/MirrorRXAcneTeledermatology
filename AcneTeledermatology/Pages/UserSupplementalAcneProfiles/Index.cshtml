@@ -1,0 +1,86 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserSupplementalAcneProfiles.IndexModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Index";
+
+   
+        Layout = "_PatientLayout";
+    
+}
+
+<h1>Index</h1>
+
+@if (!Model.UserSupplementalAcneProfile.Any(item => item.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+{
+    <p>
+        <a asp-page="Create">Don't have an existing acne profile? Create one now!</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SleepingPattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SunblockHabit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].DietHabit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SkincareProducts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile[0].SunExposure)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserSupplementalAcneProfile) {
+            // Check if the assessment belongs to the currently logged-in user
+            if (item.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                <tr>
+                    <td>
+                @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SleepingPattern)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SunblockHabit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DietHabit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkincareProducts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SunExposure)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.IDUserSupplementalAcneProfile">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.IDUserSupplementalAcneProfile" asp-route-isDerm="false">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.IDUserSupplementalAcneProfile">Delete</a>
+            </td>
+
+        </tr>
+        <p> Are these details correct? </p>
+
+                <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Yes, proceed to assess acne</a>.</p>
+        <p> Otherwise, pleae update the information by clicking the "edit" button above. </p>
+
+
+        }
+}
+    </tbody>
+</table>

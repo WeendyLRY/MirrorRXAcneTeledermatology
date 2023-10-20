@@ -1,0 +1,79 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequests.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_PatientLayout";
+
+
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @* <th>
+                @Html.DisplayNameFor(model => model.UserDermRequest[0].IDUserProfile)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequest[0].IDUserSupplementalAcneProfile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDermRequest[0].Comments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        
+@foreach (var item in Model.UserDermRequest) {
+
+        <tr>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.IDUserProfile)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.IDUserSupplementalAcneProfile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+
+                @if (isDermQueryParam=="false")
+                {
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="false">View details</a> |
+               
+            </td>
+                }
+
+                @if (isDermQueryParam == "true")
+                {
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="true">View details</a> |
+
+                    </td>
+                }
+
+        </tr>
+}
+    </tbody>
+</table>

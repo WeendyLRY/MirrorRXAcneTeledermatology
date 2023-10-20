@@ -1,0 +1,61 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserAssessments.EditModel
+@inject HttpClient HttpClient
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Let there be score</h1>
+
+<h4>Acne Assessment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+      @*   <form method="post" enctype="multipart/form-data" asp-page-handler="OnPost">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserAssessment.IDUserAssessment" />
+
+            <div class="form-group">
+                <label asp-for="UserAssessment.image_to_test_path" class="control-label"></label>
+                <input type="file" asp-for="UserAssessment.image_to_test_path" class="form-control-file" />
+                <span asp-validation-for="UserAssessment.image_to_test_path" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form> *@
+
+        <form enctype="multipart/form-data" method="post">
+
+
+            <input asp-for="UserAssessment.Id" type="hidden" value="@Model.UserAssessment.Id" />
+            <input asp-for="UserAssessment.Ingredients" type="hidden" value="@Model.UserAssessment.Ingredients" />
+            <input asp-for="UserAssessment.IDUserAssessment" type="hidden" value="@Model.UserAssessment.IDUserAssessment" />
+
+            <dl>
+                <dt>
+                    <label asp-for="ImageUpload.FormFile"></label>
+                </dt>
+                <dd>
+                    <input asp-for="ImageUpload.FormFile" type="file">
+                </dd>
+            </dl>
+            <input asp-page-handler="UploadImage" class="btn" type="submit" value="Upload Image">
+        </form>
+
+
+
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

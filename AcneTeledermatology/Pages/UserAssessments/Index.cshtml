@@ -1,0 +1,87 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserAssessments.IndexModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+
+@{
+    ViewData["Title"] = "Index";
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    if( isDermQueryParam=="true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+    }
+}
+
+@{
+    var uid = Request.Query["uid"].ToString();
+}
+
+
+@if (isDermQueryParam == "false")
+{
+
+<h1>Start your acne assessment with just a simple image upload!</h1>
+
+}
+
+@if (isDermQueryParam == "true")
+{
+
+    <h1>Click to assess patient's past acne scores and status</h1>
+
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UserAssessment[0].DateCreated)</th>
+            <th>@Html.DisplayNameFor(model => model.UserAssessment[0].Score)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserAssessment)
+        {
+            // Check if the assessment belongs to the currently logged-in user
+            if (item.Id == uid)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Score_In_text)</td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.IDUserAssessment">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.IDUserAssessment">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@if (isDermQueryParam == "false")
+{
+
+
+    <div>
+        <a asp-page="/UserAssessments/Create" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Start Assessment</a>
+
+    </div>
+}
+
+@* Pigi UserDermRequestResponse/Create tlg kssi comment *@
+
+@if (isDermQueryParam == "true")
+{
+    <div>
+        <a asp-page="/UserDermRequestResponses/Create" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+
+    </div>
+}

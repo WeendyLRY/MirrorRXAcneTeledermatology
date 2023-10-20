@@ -1,0 +1,21 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserHomeViewModels.IndexModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@{
+}
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_PatientLayout";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Mirror RX</h1>
+    <p>Option 1: <a class="nav-link text-dark" asp-area="" asp-page="/UserSupplementalAcneProfiles/Index" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Update acne profile</a>.</p>
+    <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Acne Severity Assessment</a>.</p>
+    <p>Option 3: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Request a derm</a>.</p>
+
+    <a asp-page="/UserAssessments/Create" >Start Assessment</a>
+</div>
