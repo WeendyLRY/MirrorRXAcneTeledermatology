@@ -4,6 +4,7 @@ using AcneTeledermatology.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcneTeledermatology.Migrations
 {
     [DbContext(typeof(AcneTeleContext))]
-    partial class AcneTeleContextModelSnapshot : ModelSnapshot
+    [Migration("20231020213839_testing_manatau_ada_yang_ndak_termasuk_lagipun_aku_mau_edit_Profile_lepas_ni")]
+    partial class testing_manatau_ada_yang_ndak_termasuk_lagipun_aku_mau_edit_Profile_lepas_ni
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
