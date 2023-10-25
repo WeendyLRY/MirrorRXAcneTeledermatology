@@ -4,6 +4,7 @@ using AcneTeledermatology.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcneTeledermatology.Migrations
 {
     [DbContext(typeof(AcneTeleContext))]
-    partial class AcneTeleContextModelSnapshot : ModelSnapshot
+    [Migration("20231024210550_oraya")]
+    partial class oraya
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,9 +218,6 @@ namespace AcneTeledermatology.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("HasFollowUp")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("IDState")
                         .HasColumnType("int");
 
@@ -276,13 +276,13 @@ namespace AcneTeledermatology.Migrations
                     b.Property<int?>("IDUserDermRequest")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCaseClosed")
+                    b.Property<bool?>("IsCaseClosed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsPhysicalConsultationRequired")
+                    b.Property<bool?>("IsPhysicalConsultationRequired")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVirtualConsultationPossible")
+                    b.Property<bool?>("IsVirtualConsultationPossible")
                         .HasColumnType("bit");
 
                     b.HasKey("IDUserDermRequestResponse");

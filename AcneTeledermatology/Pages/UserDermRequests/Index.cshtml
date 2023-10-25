@@ -8,6 +8,7 @@
 
     var isDermQueryParam = HttpContext.Request.Query["isDerm"];
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var messageFromPrevious = HttpContext.Request.Query["message"];
 
     if (isDermQueryParam == "true")
     {
@@ -77,3 +78,8 @@
 }
     </tbody>
 </table>
+
+@if (messageFromPrevious == "tryingToSubmitFollowUpToRequestWithFollowUp")
+{
+    <p>This consultation case already has a follow-up case. You cannot submit two cases.</p>
+}

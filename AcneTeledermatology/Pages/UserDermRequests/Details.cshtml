@@ -57,11 +57,31 @@
 
             @* Pigi tengok user punya acne profile *@
             
-            @if (Model.UserDermRequest?.IDUserSupplementalAcneProfile != null)
+                @if (Model.UserDermRequest?.IDUserSupplementalAcneProfile != null)
             {
-                <a asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@Model.UserDermRequest.IDUserDermRequest">View Current Acne Status Of The Patient</a>
+                @if(isComingFromWhere != "uddr_index")
+                {
+                    <a asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest" >View Current Acne Status Of The Patient</a>
+                }
+
+                    @if (isComingFromWhere == "uddr_index")
+                    {
+                        <a asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest" asp-route-comingFrom="@isComingFromWhere">View Current Acne Status Of The Patient</a>
+                    }
+
+
                 
             }
+                @if (isComingFromWhere == "uddr_index")
+                {
+                    <div>
+                        <a asp-page="/UserProfiles/PatientProfile" asp-route-uid="@Model.UserDermRequest.Id" asp-route-isDerm="true">View Profile of User</a>
+                        
+                    </div>
+                }
+
+
+
             <a asp-page="./Index">Back to List</a>
         </div>
 
@@ -77,12 +97,7 @@
             }
         }
 
-        @if (isComingFromWhere=="uddr_index")
-        {
-            <div>
-                <a asp-page="/UserProfiles/PatientProfile" asp-route-uid="@Model.UserDermRequest.Id" asp-route-isDerm="true">View Profile of User</a>
-            </div>
-        }
+        
 
 
 

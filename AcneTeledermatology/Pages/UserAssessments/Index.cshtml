@@ -8,6 +8,9 @@
     ViewData["Title"] = "Index";
     var isDermQueryParam = HttpContext.Request.Query["isDerm"];
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var isReAssessment = HttpContext.Request.Query["isRA"];
+    var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
+
     if( isDermQueryParam=="true")
     {
         Layout = "_DermLayout";
@@ -78,10 +81,27 @@
 
 @* Pigi UserDermRequestResponse/Create tlg kssi comment *@
 
-@if (isDermQueryParam == "true")
+@if (isDermQueryParam == "true" )
 {
-    <div>
-        <a asp-page="/UserDermRequestResponses/Create" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+    @if (isComingFromWhere == "uddr_index")
+    {
 
-    </div>
+
+        <div>
+            <a asp-page="/UserDermRequestResponses/RespondToPatientConsultationFeedback" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-comingFrom="@isComingFromWhere" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+
+        </div>
+    }
+
+    @if (isComingFromWhere != "uddr_index")
+    {
+
+
+        <div>
+            <a asp-page="/UserDermRequestResponses/Create" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+
+        </div>
+    }
 }
+
+

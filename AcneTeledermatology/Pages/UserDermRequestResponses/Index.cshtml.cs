@@ -22,8 +22,40 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
         public IList<UserDermRequestResponse> UserDermRequestResponse { get;set; } = default!;
 
 
-        public async Task OnGetAsync(string uid, bool? isViewUnattendedPatient)
+        //weakness: didn't handle null value
+        //public async Task OnGetAsync(string uid, bool? isViewUnattendedPatient)
+        //{
+
+
+        //    if (_context.UserDermRequestResponses != null)
+        //    {
+        //        // Get the IDDermProfile of the User based on the provided uid
+        //        var dermProfile = await _context.DermProfiles.FirstOrDefaultAsync(u => u.Id == uid);
+        //        if (dermProfile != null)
+        //        {
+        //            int dermProfileId = dermProfile.IDDermProfile;
+
+        //            // Filter the UserDermRequestResponses where IDDermProfile matches the userDermProfileId
+        //            UserDermRequestResponse = await _context.UserDermRequestResponses
+        //                .Where(udr => udr.IDDermProfile == dermProfileId)
+        //                .ToListAsync();
+
+        //        }
+        //        else
+        //        {
+        //            // Handle the case when user is not found
+        //            UserDermRequestResponse = new List<UserDermRequestResponse>();
+        //        }
+
+
+        //    }
+
+
+        // }
+
+        public async Task OnGetAsync(string uid, bool isViewUnattendedPatient)
         {
+
 
 
             if (_context.UserDermRequestResponses != null)
@@ -45,12 +77,14 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
                     // Handle the case when user is not found
                     UserDermRequestResponse = new List<UserDermRequestResponse>();
                 }
-
-
             }
-
-
+            else
+            {
+                // Handle the case when _context.UserDermRequestResponses is null
+                UserDermRequestResponse = new List<UserDermRequestResponse>();
+            }
         }
+
 
     }
 }

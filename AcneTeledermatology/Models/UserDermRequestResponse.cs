@@ -21,6 +21,14 @@ namespace AcneTeledermatology.Models
 
         public string DermSuggestion { get; set; }
 
+        public bool IsVirtualConsultationPossible { get; set; }
+
+        public bool IsPhysicalConsultationRequired { get; set; }
+
+        public bool IsCaseClosed { get; set; }
+
+        
+
 
 
          ICollection<DermPatientHistory> DermPatientHistory;

@@ -3,6 +3,20 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
 }
 
 <h1>Details</h1>
@@ -43,7 +57,49 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+ @if (isDermQueryParam == "true")
+{
+    <div>
+   
+        <a asp-page="./Edit" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse">Edit</a>
+    |
+
+
+    < a asp - page = "./Index" > Back to List</ a >
+    </div>
+ }
+    @if(isDermQueryParam == "false")
+    }
+    <div>
+        <a asp-page="/UserDermRequests/CreateFollowUpRequest" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>My acne is not healing yet.</a>
+            <a asp-page="/UserDermRequests/AcneOK" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Close consultation. My acne got better. I will come back in the future for separate consultation.</a>
+    </div>
+    }
+
+
+    <!-- Modal Dialog -->
+    <div class="modal" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="warningModalLabel">Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    This consultation case already has a follow-up case. You cannot submit two cases.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+   
+
+

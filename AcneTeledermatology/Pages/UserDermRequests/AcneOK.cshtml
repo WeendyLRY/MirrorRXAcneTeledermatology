@@ -1,11 +1,13 @@
 ﻿@page
-@model AcneTeledermatology.Pages.UserDermRequests.CreateModel
+@model AcneTeledermatology.Pages.UserDermRequests.AcneOKModel
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "Create";
     Layout = "_PatientLayout";
+
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
 
 }
 
@@ -19,32 +21,33 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <!-- Auto-populate UserDermRequest.IDUserProfile and UserDermRequest.IDUserSupplementalAcneProfile -->
-         @*    <input type="hidden" asp-for="UserDermRequest.IDUserProfile" />
+            @*    <input type="hidden" asp-for="UserDermRequest.IDUserProfile" />
             <input type="hidden" asp-for="UserDermRequest.IDUserSupplementalAcneProfile" /> *@
+
+
 
             <input type="hidden" asp-for="UserDermRequest.Id" />
             <input type="hidden" asp-for="UserDermRequest.hasDerm" />
             <input type="hidden" asp-for="UserDermRequest.IDState" />
             <input type="hidden" asp-for="UserDermRequest.IsFollowUp" />
-            <input type="hidden" asp-for="UserDermRequest.PreviousConsultationID" />
+            <input type="hidden" asp-for="UserDermRequest.PreviousConsultationID" value=@idUserDermRequest />
             @* <input type="hidden" asp-for="UserDermRequest.PreviousConsultation" /> *@
             <input type="hidden" asp-for="UserDermRequest.IsAcneConditionHealing" />
             <input type="hidden" asp-for="UserDermRequest.IsInConsultation" />
-            <input type="hidden" asp-for="UserDermRequest.HasFollowUp" />
 
 
 
 
             <div class="form-group">
                 <label type="hidden" asp-for="UserDermRequest.DateCreated" class="control-label"></label>
-                <input type = "hidden" asp-for="UserDermRequest.DateCreated" class="form-control" />
+                <input type="hidden" asp-for="UserDermRequest.DateCreated" class="form-control" />
                 <span asp-validation-for="UserDermRequest.DateCreated" class="text-danger"></span>
             </div>
 
-           @*  <div class="form-group" style="display: none;" id="UserDermRequest_IDUserProfile">
-                <label asp-for="UserDermRequest.IDUserProfile" class="control-label"></label>
-                <input asp-for="UserDermRequest.IDUserProfile" class="form-control" />
-                <span asp-validation-for="UserDermRequest.IDUserProfile" class="text-danger"></span>
+            @*  <div class="form-group" style="display: none;" id="UserDermRequest_IDUserProfile">
+            <label asp-for="UserDermRequest.IDUserProfile" class="control-label"></label>
+            <input asp-for="UserDermRequest.IDUserProfile" class="form-control" />
+            <span asp-validation-for="UserDermRequest.IDUserProfile" class="text-danger"></span>
             </div> *@
             <div class="form-group" style="display: none;" id="UserDermRequest_IDUserSupplementalAcneProfile">
                 <label asp-for="UserDermRequest.IDUserSupplementalAcneProfile" class="control-label"></label>
@@ -61,8 +64,12 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
+
     </div>
 </div>
+
+
 
 <div>
     <a asp-page="Index">Back to List</a>
@@ -109,14 +116,16 @@
         // });
 
 
-        
-                // Get the user's ID from wherever it's available in your context
-                var userId = "@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value";
+
+        // Get the user's ID from wherever it's available in your context
+        var userId = "@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value";
 
         // Set the value of the hidden input
         document.querySelector("input[name='UserDermRequest.Id']").value = userId;
-    
 
-       
+
+
+
+
     </script>
 }

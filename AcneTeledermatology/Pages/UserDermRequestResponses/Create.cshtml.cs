@@ -39,6 +39,10 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
                 int idudr = int.Parse(HttpContext.Request.Query["idudr"]);
                 UserDermRequestResponse.IDUserDermRequest = idudr;
                 UserDermRequestResponse.IDDermProfile = dermProfileId;
+                UserDermRequestResponse.IsCaseClosed = false;
+                UserDermRequestResponse.IsPhysicalConsultationRequired = false;
+                UserDermRequestResponse.IsVirtualConsultationPossible = true;
+
             }
 
             return Page();
@@ -49,6 +53,9 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
         public UserDermRequestResponse UserDermRequestResponse { get; set; } = new UserDermRequestResponse();
 
         public UserDermRequest UserDermRequest { get; set; } = new UserDermRequest();
+
+        public bool ShowField { get; set; }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -74,13 +81,15 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
                 if (userDermRequest != null)
                 {
                     userDermRequest.hasDerm = true;
+                    userDermRequest.IDState = 2;
+                    
                     await _context.SaveChangesAsync(); // Save changes to the database
                 }
             }
 
             string queryParamValueUID = HttpContext.Request.Query["uid"];
 
-            return RedirectToPage("./Index", new { uid = queryParamValueUID, isDerm = "false" });
+            return RedirectToPage("./Index", new { uid = queryParamValueUID, isDerm = "true", isViewUnattendedPatient=true });
         }
 
 

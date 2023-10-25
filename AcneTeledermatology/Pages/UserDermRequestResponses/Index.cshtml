@@ -64,7 +64,8 @@
                 <a asp-page="./Edit" asp-route-id="@item.IDUserDermRequestResponse">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.IDUserDermRequestResponse">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.IDUserDermRequestResponse">Delete</a> |
-                <a asp-page="/UserDermRequests/Details" asp-route-id="@item.IDUserDermRequest" asp-route-comingFrom="uddr_index">View User Profile</a> 
+                    <a asp-page="/UserDermRequests/Details" asp-route-id="@item.IDUserDermRequest" asp-route-comingFrom="uddr_index" asp-route-isDerm="true" asp-route-previousIDUDR="idUserDermRequest">Follow up the Request</a>
+
             </td>
         </tr>
 }

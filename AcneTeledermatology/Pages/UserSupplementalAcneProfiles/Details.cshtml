@@ -8,6 +8,7 @@
     ViewData["Title"] = "Details";
     var isDermQueryParam = HttpContext.Request.Query["isDerm"];
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
 
     if (isDermQueryParam == "true")
     {
@@ -81,17 +82,43 @@
 
     @if (isDermQueryParam == "true")
     {
-        <text>
-            <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index"
+        @if (isComingFromWhere == "uddr_index")
+        {
+
+
+            <text>
+                <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index"
                asp-route-AutomaticCreate="true"
                asp-route-uid="@Model.UserSupplementalAcneProfile?.Id"
                asp-route-isDerm="true"
-               asp-route-idudr=@idUserDermRequest>Next: View patient's acne severity assessment
+               asp-route-idudr=@idUserDermRequest
+               asp-route-comingFrom="@isComingFromWhere">
+                Next: View patient's acne severity assessment
+                
                 
             </a>
 
         </text>
+        }
 
+        @if (isComingFromWhere != "uddr_index")
+        {
+
+
+            <text>
+                <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index"
+                   asp-route-AutomaticCreate="true"
+                   asp-route-uid="@Model.UserSupplementalAcneProfile?.Id"
+                   asp-route-isDerm="true"
+                   asp-route-idudr=@idUserDermRequest
+                   >
+                    Next: View patient's acne severity assessment
+
+
+                </a>
+
+            </text>
+        }
     }
 
 
