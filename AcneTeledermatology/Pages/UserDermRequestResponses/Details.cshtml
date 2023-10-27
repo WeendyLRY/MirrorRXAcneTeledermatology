@@ -25,24 +25,14 @@
     <h4>UserDermRequestResponse</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserDermRequestResponse.IDDermProfile)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserDermRequestResponse.IDDermProfile)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserDermRequestResponse.IDUserDermRequest)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserDermRequestResponse.IDUserDermRequest)
-        </dd>
+     
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserDermRequestResponse.DermComment)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserDermRequestResponse.DermComment)
+            <pre>@Html.DisplayFor(model => model.UserDermRequestResponse.DermComment)</pre>
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserDermRequestResponse.DermPrescription)
         </dt>
@@ -70,12 +60,38 @@
  }
     @if(isDermQueryParam == "false")
     }
+    @if(Model.ShowOptionsToLetPatientFollowUp)
+    {
     <div>
         <a asp-page="/UserDermRequests/CreateFollowUpRequest" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>My acne is not healing yet.</a>
             <a asp-page="/UserDermRequests/AcneOK" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Close consultation. My acne got better. I will come back in the future for separate consultation.</a>
     </div>
     }
 
+@if (Model.InformUserDermHaveNotRespondedYet)
+{
+    <div>Derm have not responded yet. Come back later!</div>
+}
+
+    @if (Model.reasonCaseClosed == "Virtual consultation not possible. Require physical consultation.")
+    {
+        <div>
+            <p>thanks for using our service! case is now closed. </p>
+        </div>
+    }
+
+@if (Model.isCaseClosed == true)
+    {
+        <a asp-page="./CloseCaseFromPatientSide" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse">Close consultation</a>
+    }
+
+    }
+    <div>
+<p>
+    Prescribed by:
+    Doctor @Model.DermName
+</p>
+</div>
 
     <!-- Modal Dialog -->
     <div class="modal" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
@@ -96,6 +112,7 @@
             </div>
         </div>
     </div>
+
 
 
 

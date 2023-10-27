@@ -69,7 +69,7 @@
                 @if (isDermQueryParam == "true")
                 {
                     <td>
-                        <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="true">View details</a> |
+                        <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="true" asp-route-idudr="@item.IDUserDermRequest">View details</a> |
 
                     </td>
                 }

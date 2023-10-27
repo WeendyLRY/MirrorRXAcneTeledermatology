@@ -49,4 +49,21 @@ button.accept-policy {
 
 
 
+/* Custom CSS to style the buttons */
+.custom-button {
+    display: inline-block;
+    background-color: transparent;
+    color: #000; /* Set your desired text color */
+    border: 1px solid #000; /* Set your desired border color */
+    border-radius: 0; /* Remove border radius for a flat appearance */
+    transition: color 0.3s, background-color 0.3s; /* Add transitions for smooth hover and click effects */
 }
+
+    .custom-button:hover {
+        background-color: #ccc; /* Change background color on hover */
+    }
+
+    .custom-button.active {
+        background-color: #333; /* Change background color when clicked */
+        color: #fff; /* Change text color when clicked */
+    }

@@ -15,12 +15,12 @@ using Tensorflow;
 
 namespace AcneTeledermatology.Pages.UserDermRequests
 {
-    public class AcneOKModel : PageModel
+    public class AcneNotOKModel : PageModel
     {
         private readonly AcneTeledermatology.Data.AcneTeleContext _context;
-        private readonly ILogger<AcneOKModel> _logger;
+        private readonly ILogger<AcneNotOKModel> _logger;
 
-        public AcneOKModel(AcneTeledermatology.Data.AcneTeleContext context, ILogger<AcneOKModel> logger)
+        public AcneNotOKModel(AcneTeledermatology.Data.AcneTeleContext context, ILogger<AcneNotOKModel> logger)
         {
             _context = context;
             _logger = logger;
@@ -72,9 +72,9 @@ namespace AcneTeledermatology.Pages.UserDermRequests
             {
                 DateCreated = DateTime.Now,
                 hasDerm = true,
-                IDState = 4,
+                IDState = 5,
                 IsFollowUp = true,
-                IsAcneConditionHealing = true,
+                IsAcneConditionHealing = false,
                 IsInConsultation = true,
                 HasFollowUp = false
             };
@@ -174,14 +174,13 @@ namespace AcneTeledermatology.Pages.UserDermRequests
                 DermComment = "haven't respond",
                 DermPrescription = "haven't respond",
                 DermSuggestion = "haven't respond",
-                IsCaseClosed = false,
+                IsCaseClosed = true,
                 IsPhysicalConsultationRequired = false,
                 IsVirtualConsultationPossible = true
 
-
             };
 
-            
+
 
             _context.UserDermRequestResponses.Add(newResponse);
             await _context.SaveChangesAsync();

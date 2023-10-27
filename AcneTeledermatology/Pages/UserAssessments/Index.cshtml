@@ -10,6 +10,7 @@
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
     var isReAssessment = HttpContext.Request.Query["isRA"];
     var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
+    var idDermRequestForReAssessment = HttpContext.Request.Query["idDermRequestForReAssessment"];
 
     if( isDermQueryParam=="true")
     {
@@ -88,7 +89,12 @@
 
 
         <div>
-            <a asp-page="/UserDermRequestResponses/RespondToPatientConsultationFeedback" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-comingFrom="@isComingFromWhere" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+            <a asp-page="/UserDermRequestResponses/RespondToPatientConsultationFeedback" 
+            asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
+            asp-route-comingFrom="@isComingFromWhere" 
+            asp-route-idudr=@idUserDermRequest
+            asp-route-idDermRequestForReAssessment="@idDermRequestForReAssessment"
+            >Respond to queryt</a>
 
         </div>
     }

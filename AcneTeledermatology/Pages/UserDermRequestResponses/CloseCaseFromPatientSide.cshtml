@@ -1,0 +1,22 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequestResponses.CloseCaseFromPatientSideModel
+
+@{
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+}
+
+<div>
+    @if (Model.IsCaseClosed)
+    {
+        <p>Case is already closed.</p>
+    }
+    else
+    {
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" />
+            <button type="submit" class="btn btn-primary">Close consultation</button>
+        </form>
+
+    
+    }
+</div>

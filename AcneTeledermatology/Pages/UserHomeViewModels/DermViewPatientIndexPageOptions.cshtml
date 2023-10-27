@@ -1,0 +1,19 @@
+﻿@page
+
+@model AcneTeledermatology.Models.User
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Which one would you like to view?</h1>
+    <p>Option 1: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true" asp-route-view="closedCases">View closed cases</a>.</p>
+    
+    <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true" asp-route-view="unattendedPatients">View unattended patient</a>.</p>
+
+    <p>Option 3: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true" asp-route-view="patientsInConsultation">patientsInConsultation</a>.</p>
+    
+
+    <a asp-page="/UserAssessments/Create">Start Assessment</a>
+</div>

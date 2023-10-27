@@ -9,6 +9,7 @@
     var isDermQueryParam = HttpContext.Request.Query["isDerm"];
     var idUserDermRequest = HttpContext.Request.Query["idudr"];
     var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
+    var idDermRequestForReAssessment = HttpContext.Request.Query["idDermRequestForReAssessment"];
 
     if (isDermQueryParam == "true")
     {
@@ -92,7 +93,8 @@
                asp-route-uid="@Model.UserSupplementalAcneProfile?.Id"
                asp-route-isDerm="true"
                asp-route-idudr=@idUserDermRequest
-               asp-route-comingFrom="@isComingFromWhere">
+               asp-route-comingFrom="@isComingFromWhere"
+                   asp-route-idDermRequestForReAssessment="@idDermRequestForReAssessment">
                 Next: View patient's acne severity assessment
                 
                 

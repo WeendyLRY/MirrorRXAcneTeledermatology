@@ -61,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="C:\Users\weend\OneDrive\Desktop\backup.cshtml" Link="backup.cshtml" />
     <Content Include="Pages\Acne-Blog-Header.jpg" />
     <Content Include="Pages\Doctor-House-Hospital-Staff.jpg" />
   </ItemGroup>

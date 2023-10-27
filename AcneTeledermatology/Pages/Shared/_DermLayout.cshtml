@@ -50,7 +50,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index">View unattended patients</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">View unattended patients</a>
                                 </li>
 
                             <li class="nav-item">

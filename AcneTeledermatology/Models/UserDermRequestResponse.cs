@@ -36,6 +36,11 @@ namespace AcneTeledermatology.Models
          DermProfile DermProfile;
 
          ICollection<UserDermRequest> UserDermRequest;
+        //internal bool ContinuePrescribedTreatment;
 
+
+        
+        
+        
     }
 }
