@@ -11,6 +11,7 @@
     var isReAssessment = HttpContext.Request.Query["isRA"];
     var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
     var idDermRequestForReAssessment = HttpContext.Request.Query["idDermRequestForReAssessment"];
+    var isComingFromIndexRefined = HttpContext.Request.Query["isFromIndexRefined"];
 
     if( isDermQueryParam=="true")
     {
@@ -70,19 +71,22 @@
 </table>
 
 
-@if (isDermQueryParam == "false")
+@if (isDermQueryParam == "false" && isComingFromIndexRefined != "true")
 {
 
 
     <div>
-        <a asp-page="/UserAssessments/Create" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Start Assessment</a>
+        <a class="btn btn-secondary" asp-page="/UserAssessments/Create" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Start Assessment</a>
 
     </div>
 }
 
 @* Pigi UserDermRequestResponse/Create tlg kssi comment *@
 
-@if (isDermQueryParam == "true" )
+
+
+
+@if (isDermQueryParam == "true" && isComingFromIndexRefined != "true")
 {
     @if (isComingFromWhere == "uddr_index")
     {
@@ -99,12 +103,12 @@
         </div>
     }
 
-    @if (isComingFromWhere != "uddr_index")
+    @if (isComingFromWhere != "uddr_index" && isComingFromIndexRefined != "true")
     {
 
 
         <div>
-            <a asp-page="/UserDermRequestResponses/Create" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-idudr=@idUserDermRequest>Respond to queryt</a>
+            <a class="btn btn-secondary" asp-page="/UserDermRequestResponses/Create" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-idudr=@idUserDermRequest>Respond to query</a>
 
         </div>
     }

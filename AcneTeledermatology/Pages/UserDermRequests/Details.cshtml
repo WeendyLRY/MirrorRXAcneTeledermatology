@@ -35,10 +35,10 @@
             @Html.DisplayFor(model => model.UserDermRequest.IDUserProfile)
         </dd> *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserDermRequest.IDUserSupplementalAcneProfile)
+            @Html.DisplayNameFor(model => model.UserDermRequest.Title)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserDermRequest.IDUserSupplementalAcneProfile)
+            @Html.DisplayFor(model => model.UserDermRequest.Title)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserDermRequest.Comments)
@@ -62,12 +62,12 @@
             {
                 @if(isComingFromWhere != "uddr_index")
                 {
-                    <a asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest" >View Current Acne Status Of The Patient</a>
+                        <a class="btn btn-outline-danger"  asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest">View Current Acne Status Of The Patient</a>
                 }
 
                 @if (isComingFromWhere == "uddr_index")
                 {
-                        <a asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest" asp-route-comingFrom="@isComingFromWhere" asp-route-idDermRequestForReAssessment="@Model.UserDermRequest.IDUserDermRequest">View Current Acne Status Of The Patient</a>
+                        <a class="btn btn-outline-danger" asp-page="/UserSupplementalAcneProfiles/Details" asp-route-id="@Model.UserDermRequest.IDUserSupplementalAcneProfile" asp-route-isDerm="true" asp-route-idudr="@idUserDermRequest" asp-route-comingFrom="@isComingFromWhere" asp-route-idDermRequestForReAssessment="@Model.UserDermRequest.IDUserDermRequest">View Current Acne Status Of The Patient</a>
                 }
 
 
@@ -76,14 +76,14 @@
                 @if (isComingFromWhere == "uddr_index")
                 {
                     <div>
-                        <a asp-page="/UserProfiles/PatientProfile" asp-route-uid="@Model.UserDermRequest.Id" asp-route-isDerm="true" asp-route-idDermRequestForReAssessment="@Model.UserDermRequest.IDUserDermRequest">View Profile of User</a>
+                        <a class="btn btn-outline-danger" asp-page="/UserProfiles/PatientProfile" asp-route-uid="@Model.UserDermRequest.Id" asp-route-isDerm="true" asp-route-idDermRequestForReAssessment="@Model.UserDermRequest.IDUserDermRequest">View Profile of User</a>
                         
                     </div>
                 }
 
 
 
-            <a asp-page="./Index">Back to List</a>
+            
         </div>
 
         }
@@ -93,7 +93,7 @@
             @if(@Model.UserDermRequest.hasDerm)
             {
                 <div>
-                    <a asp-page="/UserDermRequestResponses/Details" asp-route-idudr="@Model.UserDermRequest.IDUserDermRequest" asp-route-isDerm="false">View Result of Derm Assessment</a>
+                    <a class="btn btn-outline-danger"  asp-page="/UserDermRequestResponses/Details" asp-route-idudr="@Model.UserDermRequest.IDUserDermRequest" asp-route-isDerm="false">View Result of Derm Assessment</a>
                  </div>
             }
         }

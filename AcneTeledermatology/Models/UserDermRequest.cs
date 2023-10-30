@@ -53,6 +53,8 @@ namespace AcneTeledermatology.Models
         [ForeignKey("User")]
         public string Id { get; set; } // Foreign Key to User, Unique, Not Null
 
+        public string Title { get; set; }
+
         public string Comments { get; set; }
 
         public DateTime DateCreated { get; set; }

@@ -1,0 +1,244 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequestResponses.ViewConsultationResultModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Details";
+
+
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
+}
+
+<h1>Details of Consultation Result for @Model.UserName </h1>
+
+<div>
+    <h4>UserDermRequestResponse</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequest.Title)
+        </dt>
+        <dd class="col-sm-10">
+            <pre>@Html.DisplayFor(model => model.UserDermRequest.Title)</pre>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequest.Comments)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDermRequest.Comments)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequest.DateCreated)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDermRequest.DateCreated)
+        </dd>
+    </dl>
+
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequestResponse.DermComment)
+        </dt>
+        <dd class="col-sm-10">
+            <pre>@Html.DisplayFor(model => model.UserDermRequestResponse.DermComment)</pre>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequestResponse.DermPrescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDermRequestResponse.DermPrescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDermRequestResponse.DermSuggestion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDermRequestResponse.DermSuggestion)
+        </dd>
+    </dl>
+
+</div>
+
+@if (isDermQueryParam == "true")
+{
+
+    <table class="buttons_in_index">
+        <thead>
+            <tr>
+                <th>
+                    <p>
+
+                        @if (Model.UserDermRequest.IsFollowUp == true || Model.UserDermRequest.PreviousConsultationID != null)
+                    {
+                            
+                        <div>
+                           <a class="btn btn-warning" asp-page="/UserDermRequestResponses/ViewConsultationResult"
+                           asp-route-id="@Model.UserDermRequest.IDUserDermRequest"
+                           asp-route-isDerm="true"
+                           asp-route-idudr="@Model.UserDermRequest.PreviousConsultationID"
+                           asp-route-dermUserID="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                               Previous Consultation
+                           </a>
+                        </div>
+                        }
+                       
+                    </p>
+                </th>
+
+                <th>
+                    <p>
+                        @* go back button *@
+                        <a class="btn btn-warning" asp-page="/UserDermRequestResponses/ViewCurrentPatients"
+                           asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                           asp-route-isDerm="true"
+                           asp-route-checkHav="see_all"
+                            asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                            Go back to view current patient page
+                        </a>
+
+                    </p>
+                </th>
+
+                <th>
+                    <p>
+                        @* respond button *@
+                        @if(Model.ShowRespondButton == true)
+                        {
+                            <div>
+                        <a class="btn btn-warning" asp-page="/UserDermRequestResponses/RespondToPatientConsultationFeedback"
+                           asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                                   asp-route-idudr="@Model.UserDermRequest.PreviousConsultationID"
+                           asp-route-idDermRequestForReAssessment="@Model.UserDermRequest.IDUserDermRequest">
+                            Respond
+                        </a>
+                            </div>
+                        }
+                    </p>
+                </th>
+            </tr>
+        </thead>
+    </table>
+}
+
+@if (isDermQueryParam == "false")
+        {
+    @if (Model.ShowOptionsToLetPatientFollowUp)
+    {
+        <div>
+            <a class="btn btn-warning" asp-page="/UserDermRequests/CreateFollowUpRequest" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Acne not healed</a>
+
+            <a class="btn btn-warning" asp-page="/UserDermRequests/AcneOK" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Close consultation. My acne got better. I will come back in the future for separate consultation.</a>
+        </div>
+    }
+
+@if (Model.InformUserDermHaveNotRespondedYet)
+{
+    <div>Derm have not responded yet. Come back later!</div>
+}
+
+@if (Model.reasonCaseClosed == "Virtual consultation not possible. Require physical consultation.")
+{
+    <div>
+        <p>thanks for using our service! case is now closed. </p>
+    </div>
+}
+
+@if (Model.isCaseClosed == true)
+{
+    <a asp-page="./CloseCaseFromPatientSide" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse">Close consultation</a>
+}
+
+
+
+
+    <table class="buttons_in_index">
+        <thead>
+            <tr>
+                <th>
+                    <p>
+
+                        @if (Model.UserDermRequest.IsFollowUp == true || Model.UserDermRequest.PreviousConsultationID != null)
+                        {
+
+                            <div>
+                                <a class="btn btn-warning" asp-page="/UserDermRequestResponses/ViewConsultationResult"
+                                   asp-route-id="@Model.UserDermRequest.IDUserDermRequest"
+                                   asp-route-isDerm="false"
+                                   asp-route-idudr="@Model.UserDermRequest.PreviousConsultationID"
+                                   asp-route-patientUserID="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                                    Previous Consultation
+                                </a>
+                            </div>
+                        }
+
+                    </p>
+                </th>
+
+                <th>
+                    <p>
+                        @* go back button *@
+                        <a class="btn btn-warning" asp-page="/UserDermRequests/UDRIndexRefined"
+                           asp-route-PatientID="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                           asp-route-isDerm="false"
+                           asp-route-checkHav="see_all">
+                            Go back to consultation index
+
+                            @* UserDermRequests/UDRIndexRefined?PatientID=2a18471e-b8e8-4d10-8fbf-280ff425b02d&isDerm=false *@
+                        </a>
+
+                    </p>
+                </th>
+
+                <th>
+                    <p>
+                       
+                    </p>
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+<!-- Modal Dialog -->
+<div class="modal" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="warningModalLabel">Warning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This consultation case already has a follow-up case. You cannot submit two cases.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+}
+
+
+
+
+
+
+

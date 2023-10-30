@@ -70,10 +70,6 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
                 return NotFound();
             }
 
-
-
-
-
             if (idudr != null)
             {
                 // Use IDUserDermRequest from the query parameter to find the associated UserDermRequestResponse
@@ -82,13 +78,15 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
                 {
                     var idDermprofile = userDermRequestResponse.IDDermProfile;
                     var dermProfile = await _context.DermProfiles.FirstOrDefaultAsync(m => m.IDDermProfile == idDermprofile);
-                    
+
+                    DermName = "Doctor House";
                     if (dermProfile.DermName != null)
                     { 
                     DermName = dermProfile.DermName;
                     }
 
-                    DermName = "Doctor House";
+                    
+                    
 
                     UserDermRequestResponse = userDermRequestResponse;
                     if (userDermRequestResponse.IsCaseClosed)

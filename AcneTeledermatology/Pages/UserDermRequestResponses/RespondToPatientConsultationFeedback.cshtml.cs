@@ -314,13 +314,15 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
             }
 
 
+            string queryParamValueUID = HttpContext.Request.Query["uid"];
 
-            return RedirectToPage("/UserDermRequestResponses/Index", new
+
+            return RedirectToPage("/UserDermRequestResponses/PendingandPostedConsultationView", new
             {
-                uid = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                isDerm = "true"
+                uid = queryParamValueUID,
+                isDerm = "true",
+                checkHav = "see_all"
             });
-
 
 
         }

@@ -40,6 +40,7 @@ namespace AcneTeledermatology.Pages.UserDermRequests
         //async so can populate before validate
 
         public bool ShowWarningPopup { get; set; }
+        public UserDermRequest PreviousUserDermRequest {  get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -62,8 +63,13 @@ namespace AcneTeledermatology.Pages.UserDermRequests
                     var theuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     return RedirectToPage("./Index", new { uid = theuserId, isDerm = "false", message = "tryingToSubmitFollowUpToRequestWithFollowUp" });
 
+
                 }
+
+                PreviousUserDermRequest = previousUserDermRequest;
             }
+
+
 
 
 
@@ -76,7 +82,9 @@ namespace AcneTeledermatology.Pages.UserDermRequests
                 IsFollowUp = true,
                 IsAcneConditionHealing = true,
                 IsInConsultation = true,
-                HasFollowUp = false
+                HasFollowUp = false,
+                Title = "AcneOK",
+                PreviousConsultationID = PreviousUserDermRequest.PreviousConsultationID
             };
 
 

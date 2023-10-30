@@ -1,0 +1,161 @@
+﻿@page
+@model AcneTeledermatology.Pages.UserDermRequests.UDRIndexRefinedModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_PatientLayout";
+
+
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var messageFromPrevious = HttpContext.Request.Query["message"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
+
+}
+@if (isDermQueryParam == "false")
+{
+    <h1>Submit a derm request today!</h1>
+}
+@if (isDermQueryParam == "true")
+{
+    <h1>Index of user requests of @Model.user_to_see_derm_request</h1>
+}
+@if (isDermQueryParam == "false")
+{
+    <p>
+
+        <a class="btn btn-secondary" asp-area="" asp-page="Create">Start!</a>
+
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                <p>Request Title</p>
+            </th>
+            
+            <th>
+                <p>Request Date</p>
+            </th>
+
+            <th>
+                <p>Is Follow Up</p>
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model.UserDermRequest)
+            @if (!string.IsNullOrWhiteSpace(item.Title))
+            {
+                <tr>
+                    <td>
+                        @if(isDermQueryParam=="true")
+                        {
+                        <a asp-page="/UserDermRequestResponses/ViewConsultationResult"
+                           asp-route-id="@item.IDUserDermRequest"
+                           asp-route-isDerm="true"
+                           asp-route-idudr="@item.IDUserDermRequest"
+                           asp-route-dermUserID="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                           btn-danger>@Html.DisplayFor(modelItem => item.Title)</a>
+                        }
+                        @if (isDermQueryParam == "false")
+                        {
+                            <a asp-page="/UserDermRequestResponses/ViewConsultationResult"
+                               asp-route-id="@item.IDUserDermRequest"
+                               asp-route-isDerm="false"
+                               asp-route-idudr="@item.IDUserDermRequest"
+                               asp-route-patientUserID="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                               btn-danger>@Html.DisplayFor(modelItem => item.Title)</a>
+                        }
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                        
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsFollowUp)
+
+                    </td>
+
+                    
+@* 
+                    @if (isDermQueryParam == "true")
+                    {
+                        <td>
+                            <a asp-page="./Details"
+                               asp-route-id="@item.IDUserDermRequest"
+                               asp-route-isDerm="true"
+                               asp-route-idudr="@item.IDUserDermRequest"
+                               btn-danger>@Html.DisplayFor(modelItem => item.Title)</a>
+
+                        </td>
+                    } *@
+
+                </tr>
+            }
+
+    </tbody>
+</table>
+
+@if (isDermQueryParam == "true")
+{
+
+    <table class="buttons_in_index">
+        <thead>
+            <tr>
+                <th>
+                    <p>
+
+                        <a class="btn btn-warning" asp-area="" asp-page="/UserAssessments/Index"
+                        asp-route-uid=@Model.userId
+                        asp-route-AutomaticCreate="true"
+                        asp-route-isDerm="true"
+                        asp-route-isFromIndexRefined="true">
+                            Assessments Index</a>
+                    </p>
+                </th>
+
+                <th>
+                    <p>
+                        <a class="btn btn-warning" asp-area="" asp-page="/UserSupplementalAcneProfiles/Details"
+                        asp-route-id="@Model.IDSupplementalAcneProfile"
+                        asp-route-isDerm="true"
+                        asp-route-isFromIndexRefined="true">
+                            Acne Status
+                        </a>
+                    </p>    
+                </th>
+
+                <th>
+                    <p>
+
+                    </p>
+                </th>
+            </tr>
+        </thead>
+    </table>
+}
+@if (messageFromPrevious == "tryingToSubmitFollowUpToRequestWithFollowUp")
+{
+    <p>This consultation case already has a follow-up case. You cannot submit two cases.</p>
+}

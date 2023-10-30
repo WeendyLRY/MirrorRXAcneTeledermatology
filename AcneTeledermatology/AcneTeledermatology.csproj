@@ -14,10 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\UserDermRequestResponses\UDRIndexRefined.cshtml.cs" />
     <Compile Remove="Pages\UserLogin.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\UserDermRequestResponses\UDRIndexRefined.cshtml" />
     <Content Remove="Pages\UserSupplementalAcneProfiles\DermViewForDetailsOfPatientSupplementalAcneScores.cshtml" />
   </ItemGroup>
 
@@ -33,6 +35,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
     <PackageReference Include="NumSharp" Version="0.30.0" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="23.1.42" />
     <PackageReference Include="TensorFlow.NET" Version="0.110.4" />
     <PackageReference Include="X.PagedList.Mvc" Version="8.0.7" />
   </ItemGroup>

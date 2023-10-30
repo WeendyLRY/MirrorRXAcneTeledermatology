@@ -334,8 +334,13 @@ namespace AcneTeledermatology.Pages.UserDermRequestResponses
 
             string queryParamValueUID = HttpContext.Request.Query["uid"];
 
-            return RedirectToPage("./Index", new { uid = queryParamValueUID, isDerm = "true", isViewUnattendedPatient=true });
-        }
+            return RedirectToPage("/UserDermRequestResponses/PendingandPostedConsultationView", new 
+            { 
+                uid = queryParamValueUID, 
+                isDerm="true", 
+                checkHav="see_all" 
+            });
+            }
 
 
         public async Task<int> LoadDermProfileIdForUser(string uid)

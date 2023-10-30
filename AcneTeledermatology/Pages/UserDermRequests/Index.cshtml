@@ -21,61 +21,78 @@
     }
 
 }
+@if (isDermQueryParam == "false")
+{
+    <h1>Submit a derm request today!</h1>
+}
+@if (isDermQueryParam == "true")
+{
+    <h1>Index of user requests</h1>
+}
+@if (isDermQueryParam == "false")
+{
+    <p>
+        
+            <a class="btn btn-secondary" asp-area="" asp-page="Create">Start!</a>
+        
+    </p>
+}
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
-        <tr>
-            @* <th>
-                @Html.DisplayNameFor(model => model.UserDermRequest[0].IDUserProfile)
-            </th> *@
+        <tr> 
             <th>
-                @Html.DisplayNameFor(model => model.UserDermRequest[0].IDUserSupplementalAcneProfile)
+                <p> </p>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserDermRequest[0].Comments)
-            </th>
-            <th></th>
+             @if (isDermQueryParam == "false")
+             {
+                <th>
+                    <p>Or view your previous consultations.</p>
+                </th>   
+             }
+            @if (isDermQueryParam == "true")
+            {
+                <th>
+                    <p>Select one of the patient queries below</p>
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
 
         
-@foreach (var item in Model.UserDermRequest) {
-
+@foreach (var item in Model.UserDermRequest)
+    @if (!string.IsNullOrWhiteSpace(item.Title))
+    {
         <tr>
-           @*  <td>
-                @Html.DisplayFor(modelItem => item.IDUserProfile)
-            </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.IDUserSupplementalAcneProfile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-
-                @if (isDermQueryParam=="false")
-                {
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="false">View details</a> |
-               
-            </td>
-                }
-
-                @if (isDermQueryParam == "true")
-                {
                     <td>
-                        <a asp-page="./Details" asp-route-id="@item.IDUserDermRequest" asp-route-isDerm="true" asp-route-idudr="@item.IDUserDermRequest">View details</a> |
-
+                        @Html.DisplayFor(modelItem => item.DateCreated)
                     </td>
-                }
+                    @if (isDermQueryParam == "false")
+                    {
+                        <td>
+                            <a asp-page="./Details" 
+                            asp-route-id="@item.IDUserDermRequest" 
+                            asp-route-isDerm="false" 
+                            btn-danger>@Html.DisplayFor(modelItem => item.Title)</a>
+                        </td>
+                    }
+
+                    @if (isDermQueryParam == "true")
+                    {
+                        <td>
+                            <a asp-page="./Details" 
+                            asp-route-id="@item.IDUserDermRequest" 
+                            asp-route-isDerm="true" 
+                            asp-route-idudr="@item.IDUserDermRequest" 
+                            btn-danger>@Html.DisplayFor(modelItem => item.Title)</a> 
+
+                        </td>
+                    }
 
         </tr>
-}
+    }
+
     </tbody>
 </table>
 

@@ -11,6 +11,8 @@
     var isComingFromWhere = HttpContext.Request.Query["comingFrom"];
     var idDermRequestForReAssessment = HttpContext.Request.Query["idDermRequestForReAssessment"];
 
+    var isFromIndexRefined = HttpContext.Request.Query["isFromIndexRefined"];
+
     if (isDermQueryParam == "true")
     {
         Layout = "_DermLayout";
@@ -30,42 +32,48 @@
     <h4>UserSupplementalAcneProfile</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.User)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.User.Id)
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.User.UserName)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.SleepingPattern)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.SleepingPattern)
+        <dd class="col-sm-12">
+            @Model.GetStringForProperty(Model.UserSupplementalAcneProfile.SleepingPattern, MappingHelper.SleepingPatternMapping)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.SunblockHabit)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.SunblockHabit)
+        <dd class="col-sm-12">
+            @Model.GetStringForProperty(Model.UserSupplementalAcneProfile.SunblockHabit, MappingHelper.SunblockHabitMapping)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.DietHabit)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.DietHabit)
+        <dd class="col-sm-12">
+            @Model.GetStringForProperty(Model.UserSupplementalAcneProfile.DietHabit, MappingHelper.DietHabitMapping)
         </dd>
-        <dt class="col-sm-2">
+
+
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.SkincareProducts)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-12">
             @Html.DisplayFor(model => model.UserSupplementalAcneProfile.SkincareProducts)
         </dd>
-        <dt class="col-sm-2">
+       
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.UserSupplementalAcneProfile.SunExposure)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserSupplementalAcneProfile.SunExposure)
+        <dd class="col-sm-12">
+            @Model.GetStringForProperty(Model.UserSupplementalAcneProfile.SunExposure, MappingHelper.SunExposureMapping)
         </dd>
+
     </dl>
 </div>
 <div>
@@ -83,12 +91,12 @@
 
     @if (isDermQueryParam == "true")
     {
-        @if (isComingFromWhere == "uddr_index")
+        @if (isComingFromWhere == "uddr_index" && isFromIndexRefined != "true")
         {
 
 
             <text>
-                <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index"
+                <a class="btn btn-outline-danger" asp-area="" asp-page="/UserAssessments/Index"
                asp-route-AutomaticCreate="true"
                asp-route-uid="@Model.UserSupplementalAcneProfile?.Id"
                asp-route-isDerm="true"
@@ -103,21 +111,25 @@
         </text>
         }
 
-        @if (isComingFromWhere != "uddr_index")
+
+
+
+        @if (isComingFromWhere != "uddr_index" && isFromIndexRefined != "true")
         {
 
 
             <text>
-                <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index"
+                <a class="btn btn-outline-danger" asp-area="" asp-page="/UserAssessments/Index"
                    asp-route-AutomaticCreate="true"
                    asp-route-uid="@Model.UserSupplementalAcneProfile?.Id"
                    asp-route-isDerm="true"
                    asp-route-idudr=@idUserDermRequest
                    >
-                    Next: View patient's acne severity assessment
+                    Next
 
 
                 </a>
+                : View patient's acne severity assessment
 
             </text>
         }

@@ -56,6 +56,12 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="UserDermRequest.Title" class="control-label"></label>
+                <input asp-for="UserDermRequest.Title" class="form-control" />
+                <span asp-validation-for="UserDermRequest.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="UserDermRequest.Comments" class="control-label"></label>
                 <input asp-for="UserDermRequest.Comments" class="form-control" />
                 <span asp-validation-for="UserDermRequest.Comments" class="text-danger"></span>

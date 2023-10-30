@@ -76,7 +76,8 @@ namespace AcneTeledermatology.Pages.UserDermRequests
                 IsFollowUp = true,
                 IsAcneConditionHealing = false,
                 IsInConsultation = true,
-                HasFollowUp = false
+                HasFollowUp = false,
+
             };
 
 

@@ -9,8 +9,9 @@
 
 <h4>UserDermRequestResponse</h4>
 <hr />
+<div class="form-group mx-auto">
 <div class="row">
-    <div class="col-md-4">
+        <div class="col-md-10">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -28,160 +29,173 @@
             </div>
 
             <div class="form-group">
+                @* dermcomment *@
+                <div class="row">
+                    @* row 1 start *@
+                    <div class="col-md-6">
+
+                        <label>Section 1: Aftercare Instructions</label>
+                        <div>
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="ContinuePrescribedTreatment">
+                                    Continue with the prescribed treatment as discussed during the consultation.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="FollowUpForProgressCheck">
+                                    Follow up in [X] weeks for a progress check.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="AvoidSunExposure">
+                                    Avoid prolonged sun exposure and use SPF 30 sunscreen.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="MaintainHealthyDietAndLifeStyle">
+                                    Maintain a healthy diet and lifestyle for improved skin health.
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
 
 
-                <label>Section 1: Aftercare Instructions</label>
+                        <label>Section 2: Examination Findings</label>
+                        <div>
+                            <div class="btn-group-toggle" data-toggle="buttons">
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.SkinDiscoloration">
+                                    Identified skin discoloration and recommended appropriate treatment.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.PustulesAndRedness">
+                                    Observed pustules and redness around the affected area.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.BlackheadsAndWhiteheads">
+                                    Noted the presence of blackheads and whiteheads.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.NodulesAndCysts">
+                                    Noted the presence of nodules and cysts.
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div> @* end of row 1 *@
+
+                <div class="row">
+                    @* row 2 start *@
+                    <div class="col-md-6">
+                        <label>Section 3: Diagnosis </label>
+                        <div>
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Diagnosis_acneVulgaris">
+                                    Provided a diagnosis of acne vulgaris.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Diagnosis_contactDermatitis">
+                                    Diagnosed contact dermatitis caused by an allergen.
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Diagnosis_fungalskin">
+                                    Identified a fungal skin infection (tinea versicolor).
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Diagnosis_rosacea">
+                                    Determined the presence of rosacea.
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Section 4: Derm's Questions </label>
+                        <div>
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Allergic" />
+                                    Are you allergic to anything (e.g., dust, seafood)?
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.SensitivitiesAndAllergies" />
+                                    Do you have any known skin sensitivities or allergies?
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.AdverseReactionToSkincare" />
+                                    Have you experienced any adverse reactions to skincare products in the past?
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.NodulesOrCyst" />
+                                    Have you used any specific products or treatments recently that might have impacted your skin?
+                                </label>
+
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" asp-for="@Model.Medications" />
+                                    Are you currently taking any medications or using any topical treatments?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div> @* end of row 2*@
+            </div> @* end of form group derm comment *@
+
+
+            <div class="form-group">
+                <label asp-for="UserDermRequestResponse.DermPrescription" class="control-label"></label>
+                @* <input asp-for="UserDermRequestResponse.DermPrescription" class="form-control" />
+                <span asp-validation-for="UserDermRequestResponse.DermPrescription" class="text-danger"></span> *@
+                <label>OTC Meds </label>
                 <div>
                     <div class="btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="ContinuePrescribedTreatment">
-                            Continue with the prescribed treatment as discussed during the consultation.
-                        </label>
-
-                        <label class "btn btn-outline-primary">
-                            <input type="checkbox" asp-for="FollowUpForProgressCheck">
-                            Follow up in [X] weeks for a progress check.
+                            <input type="checkbox" asp-for="@Model.BenzoylPeroxide">
+                            Benzoyl Peroxide
                         </label>
 
                         <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="AvoidSunExposure">
-                            Avoid prolonged sun exposure and use SPF 30 sunscreen.
+                            <input type="checkbox" asp-for="@Model.SalicylicAcid">
+                            Salicylic Acid
                         </label>
 
                         <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="MaintainHealthyDietAndLifeStyle">
-                            Maintain a healthy diet and lifestyle for improved skin health.
+                            <input type="checkbox" asp-for="@Model.AHA">
+                            Alpha Hydroxy Acids (AHAs)
+                        </label>
+
+                        <label class="btn btn-outline-primary">
+                            <input type="checkbox" asp-for="@Model.Sulfur">
+                            Sulfur
+                        </label>
+
+                        <label class="btn btn-outline-primary">
+                            <input type="checkbox" asp-for="@Model.TopicalRetinoids">
+                            Topical Retinoids
                         </label>
 
                     </div>
                 </div>
-
-                <p> </p>
-                <label>Section 2: Examination Findings</label>
-                <div>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.SkinDiscoloration">
-                            Identified skin discoloration and recommended appropriate treatment.
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.PustulesAndRedness">
-                            Observed pustules and redness around the affected area.
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.BlackheadsAndWhiteheads">
-                            Noted the presence of blackheads and whiteheads.
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.NodulesAndCysts">
-                            Noted the presence of nodules and cysts.
-                        </label>
-                    </div>
-                </div>
-
-                <p> </p>
-                <label>Section 3: Diagnosis </label>
-                <div>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Diagnosis_acneVulgaris">
-                            Provided a diagnosis of acne vulgaris.
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Diagnosis_contactDermatitis">
-                            Diagnosed contact dermatitis caused by an allergen.
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Diagnosis_fungalskin">
-                            Identified a fungal skin infection (tinea versicolor).
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Diagnosis_rosacea">
-                            Determined the presence of rosacea.
-                        </label>
-
-                    </div>
-                </div>
-
-                <p> </p>
-                <label>Section 4: Derm's Questions </label>
-                <div>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Allergic" />
-                            Are you allergic to anything (e.g., dust, seafood)?
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.SensitivitiesAndAllergies" />
-                            Do you have any known skin sensitivities or allergies?
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.AdverseReactionToSkincare" />
-                            Have you experienced any adverse reactions to skincare products in the past?
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.NodulesOrCyst" />
-                            Have you used any specific products or treatments recently that might have impacted your skin?
-                        </label>
-
-                        <label class="btn btn-outline-primary">
-                            <input type="checkbox" asp-for="@Model.Medications" />
-                            Are you currently taking any medications or using any topical treatments?
-                        </label>
-                    </div>
-                </div>
-
-
-
 
 
                 <div class="form-group">
-                    <label asp-for="UserDermRequestResponse.DermPrescription" class="control-label"></label>
-                    @* <input asp-for="UserDermRequestResponse.DermPrescription" class="form-control" />
-                    <span asp-validation-for="UserDermRequestResponse.DermPrescription" class="text-danger"></span> *@
-                    <label>OTC Meds </label>
-                    <div>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-outline-primary">
-                                <input type="checkbox" asp-for="@Model.BenzoylPeroxide">
-                                Benzoyl Peroxide
-                            </label>
-
-                            <label class="btn btn-outline-primary">
-                                <input type="checkbox" asp-for="@Model.SalicylicAcid">
-                                Salicylic Acid
-                            </label>
-
-                            <label class="btn btn-outline-primary">
-                                <input type="checkbox" asp-for="@Model.AHA">
-                                Alpha Hydroxy Acids (AHAs)
-                            </label>
-
-                            <label class="btn btn-outline-primary">
-                                <input type="checkbox" asp-for="@Model.Sulfur">
-                                Sulfur
-                            </label>
-
-                            <label class="btn btn-outline-primary">
-                                <input type="checkbox" asp-for="@Model.TopicalRetinoids">
-                                Topical Retinoids
-                            </label>
-
-                        </div>
-                    </div>
-                </div>
-
-            <div class="form-group">
                 <label asp-for="UserDermRequestResponse.DermSuggestion" class="control-label"></label>
                 <input asp-for="UserDermRequestResponse.DermSuggestion" class="form-control" />
                 <span asp-validation-for="UserDermRequestResponse.DermSuggestion" class="text-danger"></span>
@@ -220,6 +234,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 
 <div>

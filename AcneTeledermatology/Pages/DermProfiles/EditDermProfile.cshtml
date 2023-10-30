@@ -1,0 +1,50 @@
+﻿@page
+@model AcneTeledermatology.Pages.DermProfiles.EditDermProfileModel
+
+@{
+    ViewData["Title"] = "EditDermProfile";
+}
+
+<h1>EditDermProfile</h1>
+
+<h4>DermProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DermProfile.IDDermProfile" />
+            <div class="form-group">
+                
+                <input type="hidden" asp-for="DermProfile.Id" class="form-control" />
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="DermProfile.DermName" class="control-label"></label>
+                <input asp-for="DermProfile.DermName" class="form-control" />
+                <span asp-validation-for="DermProfile.DermName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DermProfile.DermEmail" class="control-label"></label>
+                <input asp-for="DermProfile.DermEmail" class="form-control" />
+                <span asp-validation-for="DermProfile.DermEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DermProfile.DermDateCreated" class="control-label"></label>
+                <input asp-for="DermProfile.DermDateCreated" class="form-control" />
+                <span asp-validation-for="DermProfile.DermDateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

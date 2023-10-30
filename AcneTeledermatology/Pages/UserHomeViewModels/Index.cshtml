@@ -11,11 +11,162 @@
 
 }
 
-<div class="text-center">
-    <h1 class="display-4">Mirror RX</h1>
-    <p>Option 1: <a class="nav-link text-dark" asp-area="" asp-page="/UserSupplementalAcneProfiles/Index" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Update acne profile</a>.</p>
-    <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Acne Severity Assessment</a>.</p>
-    <p>Option 3: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Request a derm</a>.</p>
 
-    <a asp-page="/UserAssessments/Create" >Start Assessment</a>
+<style>
+
+
+    /* Text on top of the image and overlay */
+    .custom-button a {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        text-decoration: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2; /* Ensure text is on top of the overlays */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow to the text */
+    }
+
+    /* Base styles for the custom buttons */
+    .custom-button {
+        display: inline-block;
+        width: 250px; /* Set a fixed width for the button */
+        height: 250px; /* Set a fixed height for the button */
+        background-image: url('Acne-Blog-Header.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+        /* Translucent black overlay */
+        .custom-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Translucent black layer */
+        }
+
+        /* Hover effect: Opaque gray overlay on hover */
+        .custom-button:hover::before {
+            background-color: rgba(128, 128, 128, 0.7); /* Opaque gray layer on hover */
+        }
+
+        /* Text on top of the image and overlay */
+        .custom-button span {
+            position: relative;
+            z-index: 1; /* Ensure text is on top of the overlays */
+            color: white; /* Text in white */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow to the text */
+        }
+
+        /* Adjust background image properties */
+        .custom-button img {
+            position: relative;
+            z-index: 1; /* Ensure image is on top of the overlays */
+        }
+
+    .supplemental-acne-profile {
+        background-image: url('/uploads/img/supplemental-acne-profile.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Additional styles for the dermatologist login button */
+    .request-derm {
+        background-image: url('/uploads/img/request-derm.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .acne-severity-assessment {
+        background-image: url('/uploads/img/acne-severity-assessment.jpeg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .view-current-consultations {
+        background-image: url('/uploads/img/view-current-consultations.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+
+</style>
+
+<div class="text-center" style="padding-bottom: 200px">
+    <h1 class="display-4">Mirror RX</h1>
+   @*  <p>Option 1: <a class="nav-link text-dark" asp-area="" asp-page="/UserSupplementalAcneProfiles/Index" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Update acne profile</a>.</p>
+    <p>Option 2: <a class="nav-link text-dark" asp-area="" asp-page="/UserAssessments/Index" asp-route-AutomaticCreate="true" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Acne Severity Assessment</a>.</p>
+    <p>Option 3: <a class="nav-link text-dark" asp-area="" asp-page="/UserDermRequests/Index" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="false">Request a derm</a>.</p> *@
+
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="custom-button supplemental-acne-profile">
+                    <p>
+                        <a asp-area="" asp-page="/UserSupplementalAcneProfiles/Index"
+                           id="supplemental-acne-profile-link"
+                           asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                            <span>Update Patient Acne Profile</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="custom-button acne-severity-assessment">
+                    <p>
+                        <a asp-area="" asp-page="/UserAssessments/Index"
+                           asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                           asp-route-AutomaticCreate="true" 
+                           asp-route-isDerm="false"
+                           id="acne-severity-assessment-link">
+                            <span>Acne Severity Assessment</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div> @* end of row 1 *@
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="custom-button request-derm">
+                    <p>
+                        <a asp-area="" asp-page="/UserDermRequests/Index"
+                           asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
+                           asp-route-isDerm="false"
+                           id="request-derm-link">
+                            <span>Request a derm</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="custom-button view-current-consultations">
+                    <p>
+                        <a asp-area="" asp-page="/UserDermRequests/UDRIndexRefined"
+                           asp-route-PatientID="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                           asp-route-isDerm="false"
+                           asp-route-checkHav="see_all"
+                           id="view-current-consultations-link">
+                            <span>View Current Consultations</span>
+
+                            
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> @* end of row 2*@
+
+
+    
 </div>

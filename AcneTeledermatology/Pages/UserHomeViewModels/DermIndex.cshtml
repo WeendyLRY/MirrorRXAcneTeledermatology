@@ -104,18 +104,22 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="custom-button edit-profile">
-                    <p> <a asp-area="" asp-page="/DermProfile/Edit" 
+                    <p> <a asp-area="" asp-page="/DermProfiles/EditDermProfile" 
                         id="edit-profile-link" 
-                        asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                        asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
                         <span>Update Derm Profile</span></a></p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="custom-button view-current-patients">
-                <p> <a asp-area="" asp-page="/DermPatientHistory/Index" 
-                    asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
+                    <p>
+                        <a asp-area="" asp-page="/UserDermRequestResponses/ViewCurrentPatients"
+                           asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
                     id="view-current-patients-link" 
-                    asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                    asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)"
+                        asp-route-isDerm="true"
+                           asp-route-checkHav="see_all">
+                        
                     <span>View current Patients</span></a></p>
                 </div>
             </div>
@@ -135,10 +139,13 @@
             <div class="col-md-6">
                 
                     <div class="custom-button view-posted-review">
-                    <p> <a asp-area="" asp-page="/UserDermRequestResponses/Index" 
-                        asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
-                        id="view-posted-review-link" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
-                        asp-route-isDerm="true">
+                    <p>
+                        <a asp-area="" asp-page="/UserDermRequestResponses/PendingandPostedConsultationView"
+                           asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
+                        id="view-posted-review-link" 
+                        asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" 
+                        asp-route-isDerm="true"
+                           asp-route-checkHav="see_all">
                         <span>View posted reviews</span></a></p>
                         </div>
                 </div>

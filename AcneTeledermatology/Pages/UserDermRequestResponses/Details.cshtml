@@ -55,18 +55,21 @@
     |
 
 
-    < a asp - page = "./Index" > Back to List</ a >
+    
     </div>
  }
     @if(isDermQueryParam == "false")
     }
+    <div>
     @if(Model.ShowOptionsToLetPatientFollowUp)
     {
-    <div>
-        <a asp-page="/UserDermRequests/CreateFollowUpRequest" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>My acne is not healing yet.</a>
-            <a asp-page="/UserDermRequests/AcneOK" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Close consultation. My acne got better. I will come back in the future for separate consultation.</a>
-    </div>
+   
+            <a class="btn btn-outline-danger" asp-page="/UserDermRequests/CreateFollowUpRequest" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>My acne is not healing yet.</a>
+            <a class="btn btn-outline-danger" asp-page="/UserDermRequests/AcneOK" asp-route-id="@Model.UserDermRequestResponse?.IDUserDermRequestResponse" , asp-route-idudr=@idUserDermRequest>Close consultation. My acne got better. I will come back in the future for separate consultation.</a>
+    
     }
+</div>
+    
 
 @if (Model.InformUserDermHaveNotRespondedYet)
 {

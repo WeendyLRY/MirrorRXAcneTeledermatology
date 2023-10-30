@@ -1,0 +1,77 @@
+﻿@* update to do the following:
+- tengok dont want repeating result. only want to see one user's latest (if view all)*@
+
+@page
+@model AcneTeledermatology.Pages.UserDermRequestResponses.PendingandPostedConsultationViewModel
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@{
+
+    ViewData["Title"] = "Index";
+    var isDermQueryParam = HttpContext.Request.Query["isDerm"];
+    var idUserDermRequest = HttpContext.Request.Query["idudr"];
+    var valCheckHav = HttpContext.Request.Query["checkHav"];
+
+    if (isDermQueryParam == "true")
+    {
+        Layout = "_DermLayout";
+    }
+    if (isDermQueryParam == "false")
+    {
+        Layout = "_PatientLayout";
+
+    }
+
+}
+
+<h1>View Posted Review</h1>
+
+@if (isDermQueryParam == "true")
+{
+    <p>
+
+        <a class="btn btn-secondary" asp-area="" asp-page="\PendingandPostedConsultationView" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-isDerm="true" asp-route-checkHav="view_havent_respond">View pending follow up!</a>
+
+    </p>
+}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UserDermViewModels[0].UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.UserDermViewModels[0].RequestTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.UserDermViewModels[0].UserDermRequestId)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserDermViewModels)
+        {
+            <tr>
+
+                <td>@item.UserName</td>
+                <td>
+                    @if (valCheckHav == "see_all")
+                    {
+                        @item.RequestTitle
+                    }
+                    @if (valCheckHav != "see_all")
+                    {
+                        <a asp-page="/UserDermRequests/Details" asp-route-id="@item.UserDermRequestId" asp-route-comingFrom="uddr_index" asp-route-isDerm="true" asp-route-previousIDUDR="idUserDermRequest">
+                            @item.RequestTitle
+                        </a>
+                    }
+                </td>
+                <td>@item.UserDermRequestId</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@* <a asp-page="./Edit" asp-route-id="@item.IDUserDermRequestResponse">Edit</a> |
+<a asp-page="./Details" asp-route-id="@item.IDUserDermRequestResponse">Details</a> |
+<a asp-page="./Delete" asp-route-id="@item.IDUserDermRequestResponse">Delete</a> |
+<a asp-page="/UserDermRequests/Details" asp-route-id="@item.IDUserDermRequest" asp-route-comingFrom="uddr_index" asp-route-isDerm="true" asp-route-previousIDUDR="idUserDermRequest">Follow up the Request</a> *@
